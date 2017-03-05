@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,14 +9,42 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="com.example.dell.escaperoom.MainActivity">
 
-    <TextView
-        android:id="@+id/hello_yael"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="155dp" />
+        android:inputType="textPersonName"
+        android:text="facebook username"
+        android:ems="10"
+        android:layout_marginBottom="99dp"
+        android:id="@+id/name"
+        android:layout_above="@+id/logIn"
+        android:layout_alignEnd="@+id/logIn"
+        android:textAlignment="center"
+        android:textColor="?attr/colorBackgroundFloating" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="facebook password"
+        android:ems="10"
+        android:layout_above="@+id/logIn"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginBottom="33dp"
+        android:id="@+id/password"
+        android:textColor="?attr/colorBackgroundFloating"
+        android:textAlignment="center" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/wood3"
+        android:layout_marginBottom="23dp"
+        android:id="@+id/logIn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
