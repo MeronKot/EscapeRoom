@@ -2,17 +2,22 @@ package com.example.dell.escaperoom;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity {
+import com.facebook.CallbackManager;
 
-    private EditText userName;
-    private EditText password;
-    private ImageButton logIn;
+public class MainActivity extends AppCompatActivity implements LogInFragment.LogInListener {
+
+    private LogInFragment FLogIn = new LogInFragment();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,16 +25,22 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        userName = (EditText)findViewById(R.id.name);
-        password = (EditText)findViewById(R.id.password);
-        logIn = (ImageButton)findViewById(R.id.logIn);
-        logIn.setPadding(0,0,0,0);
-        logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoggedInActivity.class);
-                startActivity(intent);
-            }
-        });
+        //FLogIn = new LogInFragment();
+        FLogIn.SetListener(this);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_layout, FLogIn);
+        ft.commit();
+    }
+
+    @Override
+    public void onLogInSuccess() {
+        ImageButton start = (ImageButton) findViewById(R.id.start);
+        start.setVisibility(View.VISIBLE);
+
+        ImageButton instructions = (ImageButton) findViewById(R.id.instructions);
+        instructions.setVisibility(View.VISIBLE);
+
+        ImageButton records = (ImageButton) findViewById(R.id.records);
+        records.setVisibility(View.VISIBLE);
     }
 }
