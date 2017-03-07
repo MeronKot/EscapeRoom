@@ -40,7 +40,7 @@ public class LogInFragment extends Fragment {
 
 
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("email", "public_profile");
         // If using in a fragment
         loginButton.setFragment(this);
         // Other app specific specialization
