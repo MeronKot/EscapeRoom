@@ -29,7 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
-public class MainActivity extends AppCompatActivity implements LogInFragment.LogInListener {
+public class MainActivity extends AppCompatActivity{
 
     //private LogInFragment FLogIn = new LogInFragment();
     private FirebaseAuth mAuth;
@@ -156,9 +156,6 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.Log
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-
-
-    @Override
     public void onLogInSuccess() {
         loginButton.setVisibility(View.INVISIBLE);
 
