@@ -15,6 +15,9 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -59,16 +62,12 @@ public class MainActivity extends AppCompatActivity{
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-
                 }
-
             }
         };
-
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
@@ -113,18 +112,42 @@ public class MainActivity extends AppCompatActivity{
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+
+        // Log out of Facebook
+        /*
+        if (LoginManager.getInstance() != null)
+            LoginManager.getInstance().logOut();
+        */
+        disconnectFromFacebook();
+        // Log out of Firebase
+        if (FirebaseAuth.getInstance() != null)
+            FirebaseAuth.getInstance().signOut();
+
+
+    }
+
+    public void disconnectFromFacebook() {
+
+
+        if (AccessToken.getCurrentAccessToken() == null) {
+            return; // already logged out
+        }
+
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+
+                LoginManager.getInstance().logOut();
+
+            }
+        }).executeAsync();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Log out of Facebook
-        if (LoginManager.getInstance() != null)
-            LoginManager.getInstance().logOut();
 
-        // Log out of Firebase
-        if (FirebaseAuth.getInstance() != null)
-            FirebaseAuth.getInstance().signOut();
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -160,6 +183,13 @@ public class MainActivity extends AppCompatActivity{
         loginButton.setVisibility(View.INVISIBLE);
 
         ImageButton start = (ImageButton) findViewById(R.id.start);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Room.class);
+                startActivity(intent);
+            }
+        });
         start.setVisibility(View.VISIBLE);
 
         ImageButton instructions = (ImageButton) findViewById(R.id.instructions);
