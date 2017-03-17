@@ -1,12 +1,17 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private ImageButton logout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -57,8 +63,29 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Room.class);
-                startActivity(intent);
+
+                final ImageView openDoorImg = (ImageView) findViewById(R.id.openDoor);
+                openDoorImg.setVisibility(View.VISIBLE);
+                openDoorImg.bringToFront();
+                openDoorImg.setBackgroundResource(R.drawable.open_door);
+                ((AnimationDrawable)openDoorImg.getBackground()).start();
+
+                new CountDownTimer(1200,500){
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {}
+
+                    @Override
+                    public void onFinish() {
+                        Intent intent = new Intent(MainActivity.this, Room.class);
+                        startActivity(intent);
+
+                    }
+                }.start();
+
+
+
+
             }
         });
 
@@ -80,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void openTheDoor() {
+
+           /* }
+        });*/
+    }
     public void disconnectFromFacebook() {
 
         //TODO: Some animation of thinking
@@ -92,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         if (FirebaseAuth.getInstance() != null)
             FirebaseAuth.getInstance().signOut();
 */
-        /*
         if(mAuth != null)
             mAuth.signOut();
         if(LoginManager.getInstance() != null)
@@ -111,13 +142,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).executeAsync();
-        */
-        //UnRegistering the Auth. Listener.
+        /*//UnRegistering the Auth. Listener.
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
-        }
+        }*/
 
-        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+        /*new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
                 .Callback() {
             @Override
             public void onCompleted(GraphResponse graphResponse) {
@@ -128,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).executeAsync();
-
-        //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+*/
+        //nt intent = new Intent(MainActivity.this, LoginActivity.class);
         //startActivity(intent);
         //logout.setClickable(true);
         //finish();
@@ -139,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        ImageView openDoor = (ImageView) findViewById(R.id.openDoor);
+        openDoor.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
