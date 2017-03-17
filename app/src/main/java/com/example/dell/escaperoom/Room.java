@@ -1,16 +1,19 @@
 package com.example.dell.escaperoom;
 
+import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class Room extends AppCompatActivity {
 
     private ImageButton imageButton;
-    private RelativeLayout missionContainer;
+    private ImageButton lamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,21 @@ public class Room extends AppCompatActivity {
         actionBar.hide();
 
         imageButton = (ImageButton)findViewById(R.id.topRightPic);
-        missionContainer = (RelativeLayout)findViewById(R.id.missionContainer);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Room.this,ChemistryChallenge.class);
+                startActivity(intent);
+            }
+        });
+
+        lamp = (ImageButton)findViewById(R.id.lamp);
+        lamp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Room.this,LampChallenge.class);
+                startActivity(intent);
+            }
+        });
     }
 }

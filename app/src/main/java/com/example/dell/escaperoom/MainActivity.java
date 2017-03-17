@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     //Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(MainActivity.this, Room.class);
                 startActivity(intent);
             }
@@ -93,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         if (FirebaseAuth.getInstance() != null)
             FirebaseAuth.getInstance().signOut();
 */
+        /*
         if(mAuth != null)
             mAuth.signOut();
         if(LoginManager.getInstance() != null)
@@ -111,12 +111,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).executeAsync();
-        /*//UnRegistering the Auth. Listener.
+        */
+        //UnRegistering the Auth. Listener.
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
-        }*/
+        }
 
-        /*new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
                 .Callback() {
             @Override
             public void onCompleted(GraphResponse graphResponse) {
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).executeAsync();
-*/
+
         //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         //startActivity(intent);
         //logout.setClickable(true);

@@ -14,7 +14,8 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Room"
+        <activity
+            android:name=".Room"
             android:screenOrientation="landscape" />
-
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ChemistryChallenge"
+            android:screenOrientation="landscape" />
+        <activity android:name=".LampChallenge"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
