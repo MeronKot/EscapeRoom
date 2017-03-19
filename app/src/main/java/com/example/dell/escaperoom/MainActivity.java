@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 openDoorImg.setBackgroundResource(R.drawable.open_door);
                 ((AnimationDrawable)openDoorImg.getBackground()).start();
 
-                new CountDownTimer(1200,500){
+                new CountDownTimer(1200,1000){
 
                     @Override
                     public void onTick(long millisUntilFinished) {}
@@ -95,23 +95,11 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  disconnectFromFacebook();
-        // Log out of Firebase
-        */
-
-
                 disconnectFromFacebook();
-
-
             }
         });
     }
 
-    private void openTheDoor() {
-
-           /* }
-        });*/
-    }
     public void disconnectFromFacebook() {
 
         //TODO: Some animation of thinking

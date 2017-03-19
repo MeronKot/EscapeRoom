@@ -14,6 +14,8 @@ public class Room extends AppCompatActivity {
 
     private ImageButton imageButton;
     private ImageButton lamp;
+    private ImageButton puzzle;
+    private ImageButton simon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,24 @@ public class Room extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Room.this,LampChallenge.class);
+                startActivity(intent);
+            }
+        });
+
+        puzzle = (ImageButton) findViewById(R.id.puzzleBtn);
+        puzzle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Room.this,PuzzleActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        simon = (ImageButton) findViewById(R.id.simonBtn);
+        simon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Room.this,SimonSaysActivity.class);
                 startActivity(intent);
             }
         });

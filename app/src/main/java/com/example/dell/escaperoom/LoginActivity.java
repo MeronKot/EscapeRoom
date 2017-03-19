@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity{
 
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
+
                 finish();
             }
 
@@ -187,8 +188,6 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         // Pass the activity result back to the Facebook SDK
         callbackManager.onActivityResult(requestCode, resultCode, data);

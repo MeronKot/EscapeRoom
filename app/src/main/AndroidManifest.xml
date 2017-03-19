@@ -36,6 +36,11 @@
             android:screenOrientation="landscape" />
         <activity android:name=".LampChallenge"
             android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".SimonSaysActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".PuzzleActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
