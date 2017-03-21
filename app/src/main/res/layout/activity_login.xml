@@ -16,7 +16,7 @@
     >
 
 
-        <com.facebook.login.widget.LoginButton
+       <!-- <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:layout_marginBottom="50dp"
 
 
-            ></com.facebook.login.widget.LoginButton>
+            ></com.facebook.login.widget.LoginButton>-->
 
 
 </LinearLayout>
