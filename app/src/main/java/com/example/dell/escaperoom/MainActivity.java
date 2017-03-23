@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+/*
                 final ImageView openDoorImg = (ImageView) findViewById(R.id.openDoor);
                 openDoorImg.setVisibility(View.VISIBLE);
                 openDoorImg.bringToFront();
                 openDoorImg.setBackgroundResource(R.drawable.open_door);
-                ((AnimationDrawable)openDoorImg.getBackground()).start();
+                ((AnimationDrawable)openDoorImg.getBackground()).start();*/
 
                 new CountDownTimer(1200,1000){
 

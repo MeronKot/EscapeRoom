@@ -5,20 +5,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="false"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
 
         <activity
             android:name=".LoginActivity"
@@ -34,17 +32,26 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ChemistryChallenge"
             android:screenOrientation="landscape" />
-        <activity android:name=".LampChallenge"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".LampChallenge"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SimonSaysActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".PuzzleActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".PuzzleActivity"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".HintActivity"
+            android:screenOrientation="landscape">
+
+        </activity>
+
+
     </application>
 
 </manifest>
