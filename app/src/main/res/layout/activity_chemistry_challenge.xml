@@ -10,53 +10,53 @@
     <SeekBar
         android:id="@+id/hotWater"
         android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/tempcw"
-        android:rotation="270"
+        android:background="@drawable/onlyscalefahrenheit"
         android:max="110"
+        android:rotation="270"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/ice"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63" />
+        app:layout_constraintVertical_bias="0.81" />
 
     <SeekBar
         android:id="@+id/roomTemp"
         android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/tempcw"
-        android:rotation="270"
+        android:background="@drawable/onlyscalefahrenheit"
         android:max="110"
+        android:rotation="270"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/ice"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintVertical_bias="0.81" />
 
     <SeekBar
         android:id="@+id/ice"
         android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/tempcw"
-        android:rotation="270"
+        android:background="@drawable/onlyscale"
         android:max="110"
+        android:rotation="270"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63" />
+        app:layout_constraintVertical_bias="0.81" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,21 +1,24 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Room extends AppCompatActivity {
 
-    private ImageButton imageButton;
+    private static final int NUM_OF_CHALLENGES = 4;
+    private ImageButton temp;
     private ImageButton lamp;
     private ImageButton puzzle;
     private ImageButton simon;
+    private boolean [] challenges;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +27,14 @@ public class Room extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        imageButton = (ImageButton)findViewById(R.id.topRightPic);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        challenges = new boolean[NUM_OF_CHALLENGES];
+
+        temp = (ImageButton)findViewById(R.id.topRightPic);
+        temp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Room.this,ChemistryChallenge.class);
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
 
@@ -38,7 +43,7 @@ public class Room extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Room.this,LampChallenge.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -47,7 +52,7 @@ public class Room extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Room.this,PuzzleActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
 
@@ -56,8 +61,58 @@ public class Room extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Room.this,SimonSaysActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,3);
             }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case 0:
+                    challenges[0] = data.getBooleanExtra("tempChallenge",false);
+                    if(challenges[0])
+                        temp.setVisibility(View.INVISIBLE);
+                    checkIfAllChallengesAreDone();
+                    break;
+                case 1:
+                    challenges[1] = data.getBooleanExtra("lampChallenge",false);
+                    if(challenges[1])
+                        lamp.setVisibility(View.INVISIBLE);
+                    checkIfAllChallengesAreDone();
+                    break;
+                case 2:
+                    challenges[2] = data.getBooleanExtra("puzzleChallenge",false);
+                    if(challenges[2])
+                        puzzle.setVisibility(View.INVISIBLE);
+                    checkIfAllChallengesAreDone();
+                    break;
+                case 3:
+                    challenges[3] = data.getBooleanExtra("simonChallenge",false);
+                    if(challenges[3])
+                        simon.setVisibility(View.INVISIBLE);
+                    checkIfAllChallengesAreDone();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void checkIfAllChallengesAreDone(){
+        int i = 0;
+        for(boolean challenge: challenges)
+            if(challenge)
+                i++;
+        if(i == NUM_OF_CHALLENGES){
+            Toast.makeText(this,"Congratulations, you ran away from this room, see you!",Toast.LENGTH_LONG).show();
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            },1000);
+        }
     }
 }

@@ -46,8 +46,6 @@ public class HintActivity extends AppCompatActivity {
         answer2 = (Button) findViewById(R.id.ans2);
         answer3 = (Button) findViewById(R.id.ans3);
         answer4 = (Button) findViewById(R.id.ans4);
-
-
     }
 
     @Override
@@ -83,6 +81,5 @@ public class HintActivity extends AppCompatActivity {
 
     public Question getQuestion(){
         return questionList.get(numOfQuest);
-
     }
 }

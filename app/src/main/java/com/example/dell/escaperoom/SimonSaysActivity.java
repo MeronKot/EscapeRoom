@@ -1,5 +1,6 @@
 package com.example.dell.escaperoom;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -131,6 +132,9 @@ public class SimonSaysActivity extends AppCompatActivity {
             if(logic.getMove() == SimonSaysLogic.NUM_OF_MOVES){
                 //TODO: youWin!!
                 Log.d("Simon: ", "win win win win win win");
+                Intent intent = new Intent();
+                intent.putExtra("simonChallenge",true);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         }

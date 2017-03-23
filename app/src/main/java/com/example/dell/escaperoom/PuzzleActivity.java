@@ -1,5 +1,6 @@
 package com.example.dell.escaperoom;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -84,6 +85,9 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
 
     @Override
     public void onWin() {
+        Intent intent = new Intent();
+        intent.putExtra("puzzleChallenge",true);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }
