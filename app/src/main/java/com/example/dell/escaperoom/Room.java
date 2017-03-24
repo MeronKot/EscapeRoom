@@ -1,6 +1,7 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,16 +9,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.math.RoundingMode;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Room extends AppCompatActivity {
 
-    private static final int NUM_OF_CHALLENGES = 4;
+    private static final int NUM_OF_CHALLENGES = 5;
     private ImageButton temp;
     private ImageButton lamp;
     private ImageButton puzzle;
     private ImageButton simon;
+    private ImageButton findDiff;
     private boolean [] challenges;
 
     @Override
@@ -64,6 +67,16 @@ public class Room extends AppCompatActivity {
                 startActivityForResult(intent,3);
             }
         });
+
+        findDiff = (ImageButton)findViewById(R.id.findDiffPic);
+        findDiff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Room.this,FindDiffPicActivity.class);
+                startActivityForResult(intent,4);
+            }
+        });
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,6 +107,11 @@ public class Room extends AppCompatActivity {
                         simon.setVisibility(View.INVISIBLE);
                     checkIfAllChallengesAreDone();
                     break;
+                case 4:
+                    challenges[4] = data.getBooleanExtra("findDiffPic",false);
+                    if(challenges[4])
+                        findDiff.setVisibility(View.INVISIBLE);
+                    checkIfAllChallengesAreDone();
                 default:
                     break;
             }

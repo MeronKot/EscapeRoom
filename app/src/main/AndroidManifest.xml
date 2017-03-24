@@ -45,13 +45,12 @@
         <activity
             android:name=".PuzzleActivity"
             android:screenOrientation="landscape" />
-
-        <activity android:name=".HintActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
-
-
+        <activity
+            android:name=".HintActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".FindDiffPicActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

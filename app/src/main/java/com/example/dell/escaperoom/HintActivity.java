@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.dell.escaperoom.Logic.Question;
 //import com.example.dell.escaperoom.Logic.QuestionsHandler;
@@ -15,10 +16,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HintActivity extends AppCompatActivity {
 
-    private EditText quest;
+    private TextView quest;
     private Button answer1;
     private Button answer2;
     private Button answer3;
@@ -41,7 +43,7 @@ public class HintActivity extends AppCompatActivity {
         questionList = new ArrayList<Question>();
 
         //Question q = QuestionsHandler.getInstance().getQuestion();
-        quest = (EditText) findViewById(R.id.theQuest);
+        quest = (TextView) findViewById(R.id.theQuest);
         answer1 = (Button) findViewById(R.id.ans1);
         answer2 = (Button) findViewById(R.id.ans2);
         answer3 = (Button) findViewById(R.id.ans3);
@@ -58,8 +60,8 @@ public class HintActivity extends AppCompatActivity {
 
                 for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
                     Question quest = questionSnapshot.getValue(Question.class);
-
                     questionList.add(quest);
+                    numOfQuest++;
                 }
 
                 Question q = getQuestion();
@@ -80,6 +82,8 @@ public class HintActivity extends AppCompatActivity {
     }
 
     public Question getQuestion(){
-        return questionList.get(numOfQuest);
+        Random random = new Random();
+        int qIdx = random.nextInt(numOfQuest);
+        return questionList.get(qIdx);
     }
 }

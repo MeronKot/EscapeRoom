@@ -93,6 +93,9 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
+                        Intent intent = new Intent();
+                        intent.putExtra("lampChallenge",true);
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
                 },3000);
