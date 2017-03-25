@@ -2,17 +2,17 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="true">
 
-    <item android:drawable="@drawable/d1" android:duration="100"/>
-    <item android:drawable="@drawable/d2" android:duration="100"/>
-    <item android:drawable="@drawable/d3" android:duration="100"/>
-    <item android:drawable="@drawable/d4" android:duration="100"/>
-    <item android:drawable="@drawable/d5" android:duration="100"/>
-    <item android:drawable="@drawable/d6" android:duration="100"/>
-    <item android:drawable="@drawable/d7" android:duration="100"/>
-    <item android:drawable="@drawable/d8" android:duration="100"/>
-    <item android:drawable="@drawable/d9" android:duration="100"/>
-    <item android:drawable="@drawable/d10" android:duration="100"/>
-    <item android:drawable="@drawable/d11" android:duration="100"/>
-    <item android:drawable="@drawable/d12" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d1" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d2" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d3" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d4" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d5" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d6" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d7" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d8" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d9" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d10" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d11" android:duration="100"/>
+    <item android:drawable="@drawable/ic_d12" android:duration="100"/>
 
 </animation-list>

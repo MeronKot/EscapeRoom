@@ -112,4 +112,16 @@ public class FindDiffPicActivity extends AppCompatActivity {
             },1000);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Room.onGame = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Room.onGame = false;
+    }
 }

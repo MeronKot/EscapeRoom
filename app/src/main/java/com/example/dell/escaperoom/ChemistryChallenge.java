@@ -130,4 +130,16 @@ public class ChemistryChallenge extends AppCompatActivity {
             }, 3000);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Room.onGame = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Room.onGame = false;
+    }
 }

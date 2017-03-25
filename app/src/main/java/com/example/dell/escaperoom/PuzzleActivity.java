@@ -90,4 +90,16 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
         setResult(RESULT_OK, intent);
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Room.onGame = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Room.onGame = false;
+    }
 }

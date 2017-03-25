@@ -86,4 +86,16 @@ public class HintActivity extends AppCompatActivity {
         int qIdx = random.nextInt(numOfQuest);
         return questionList.get(qIdx);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Room.onGame = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Room.onGame = false;
+    }
 }

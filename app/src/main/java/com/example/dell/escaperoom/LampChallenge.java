@@ -45,12 +45,14 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+        Room.onGame=true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+        Room.onGame = false;
     }
 
     @Override

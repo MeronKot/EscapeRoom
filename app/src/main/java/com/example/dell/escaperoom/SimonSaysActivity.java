@@ -40,12 +40,19 @@ public class SimonSaysActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         play(logic.getNewComputerMoves());
+        Room.onGame = true;
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Room.onGame = false;
     }
 
     private void play(final int[] moves) {
         Log.d("Simon: ", moves.toString());
-        new CountDownTimer(1000*(logic.NUM_OF_MOVES+1), 1000){
+        new CountDownTimer(1000*(logic.NUM_OF_MOVES)+500, 1000){
             int i=0;
             View lastBtn = null;
             int lastBackground = 0;
@@ -131,7 +138,7 @@ public class SimonSaysActivity extends AppCompatActivity {
             doMove(button, background);
             if(logic.getMove() == SimonSaysLogic.NUM_OF_MOVES){
                 //TODO: youWin!!
-                Log.d("Simon: ", "win win win win win win");
+                //Log.d("Simon: ", "win win win win win win");
                 Intent intent = new Intent();
                 intent.putExtra("simonChallenge",true);
                 setResult(RESULT_OK, intent);
@@ -141,6 +148,20 @@ public class SimonSaysActivity extends AppCompatActivity {
         else{
             //TODO: fail!!!
             button.setBackgroundResource(R.drawable.ic_fail);
+            //recreate();
+            new CountDownTimer(501,500){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    //recreate();
+                }
+
+                @Override
+                public void onFinish() {
+                    recreate();
+                }
+            }.start();
         }
     }
+
 }

@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private ImageButton logout;
+    private ImageButton start;
+    private ImageButton records;
+    private ImageButton instructions;
 
 
     @Override
@@ -59,16 +62,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        ImageButton start = (ImageButton) findViewById(R.id.start);
+
+        records = (ImageButton) findViewById(R.id.records);
+        instructions = (ImageButton) findViewById(R.id.instructions);
+
+        start = (ImageButton) findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
                 final ImageView openDoorImg = (ImageView) findViewById(R.id.openDoor);
+                //final RelativeLayout background = (RelativeLayout) findViewById(R.id.activity_main);
+                hide(true);
+                //background.setBackgroundResource(R.drawable.livingroom);
                 openDoorImg.setVisibility(View.VISIBLE);
                 openDoorImg.bringToFront();
                 openDoorImg.setBackgroundResource(R.drawable.open_door);
-                ((AnimationDrawable)openDoorImg.getBackground()).start();*/
+                ((AnimationDrawable)openDoorImg.getBackground()).start();
 
                 new CountDownTimer(1200,1000){
 
@@ -79,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onFinish() {
                         Intent intent = new Intent(MainActivity.this, Room.class);
                         startActivity(intent);
-
+                        hide(false);
+                        //background.setBackgroundResource(R.drawable.background);
                     }
                 }.start();
 
@@ -98,6 +108,22 @@ public class MainActivity extends AppCompatActivity {
                 disconnectFromFacebook();
             }
         });
+    }
+
+    private void hide(boolean toHide) {
+        if(toHide){
+            start.setVisibility(View.INVISIBLE);
+            logout.setVisibility(View.INVISIBLE);
+            instructions.setVisibility(View.INVISIBLE);
+            records.setVisibility(View.INVISIBLE);
+        }
+        else{
+            start.setVisibility(View.VISIBLE);
+            logout.setVisibility(View.VISIBLE);
+            instructions.setVisibility(View.VISIBLE);
+            records.setVisibility(View.VISIBLE);
+
+        }
     }
 
     public void disconnectFromFacebook() {

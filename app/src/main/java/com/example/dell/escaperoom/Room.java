@@ -5,9 +5,12 @@ import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.dell.escaperoom.Logic.GameTimer;
 
 import java.math.RoundingMode;
 import java.util.Timer;
@@ -22,6 +25,9 @@ public class Room extends AppCompatActivity {
     private ImageButton simon;
     private ImageButton findDiff;
     private boolean [] challenges;
+    public static boolean onGame = false;
+    private boolean destroy = false;
+    private String theTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,7 @@ public class Room extends AppCompatActivity {
             }
         });
 
+        startTicking();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,5 +139,52 @@ public class Room extends AppCompatActivity {
                 }
             },1000);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroy = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onGame = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        onGame = false;
+    }
+
+    public void startTicking() {
+        /*Thread t = */new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!destroy) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(onGame) {
+                        GameTimer.getInstance().tick();
+                        //Log.d("Timer: ", GameTimer.getInstance().toString());
+                        theTime = GameTimer.getInstance().toString();
+                    }
+                        /*runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //timerText.setText(timer.toString());
+                            Log.d("Timer: ", GameTimer.getInstance().toString());
+                        }
+                    });*/
+                }
+            }
+        }).start();
+        //t.start();
     }
 }
