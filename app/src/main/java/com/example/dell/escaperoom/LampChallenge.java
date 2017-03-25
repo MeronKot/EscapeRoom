@@ -11,6 +11,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -18,6 +22,14 @@ import java.util.TimerTask;
 
 public class LampChallenge extends AppCompatActivity implements SensorEventListener {
 
+    private static final int NUM_OF_HINTS = 3;
+    private String [] hints = {"If it's dark, you need to...",
+            "If now you are at day, you need to...",
+            "Just turn off the lights or turn them on"};
+    private int hintCounter = 0;
+    private Button hintButton;
+    private Button hide;
+    private RelativeLayout hintContainer;
     private SensorManager mSensorManager;
     private Sensor mLight;
     private static String TAG = "LampChallenge";
@@ -37,8 +49,33 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
         actionBar.hide();
 
         lampChallenge = (ConstraintLayout) findViewById(R.id.lampLayout);
+        hintButton = (Button)findViewById(R.id.hint);
+        hintContainer = (RelativeLayout)findViewById(R.id.hintContainer);
+        hide = (Button)findViewById(R.id.hideInHint);
+        setListeners();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+    }
+
+    private void setListeners() {
+        hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hintCounter == NUM_OF_HINTS){
+                    Toast.makeText(getApplicationContext(),"You don't have hints any more",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(LampChallenge.this,HintActivity.class);
+                startActivityForResult(intent,hintCounter);
+            }
+        });
+
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hintContainer.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     @Override
@@ -108,5 +145,23 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (hintCounter == NUM_OF_HINTS){
+                Toast.makeText(this,"No more hints",Toast.LENGTH_SHORT).show();
+                hintButton.setClickable(false);
+                return;
+            }else{
+                TextView ht = (TextView)findViewById(R.id.hintText);
+                ht.setText("");
+                ht.setText(hints[hintCounter++]);
+                hintContainer.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 }

@@ -6,7 +6,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -14,7 +17,14 @@ import java.util.TimerTask;
 
 public class FindDiffPicActivity extends AppCompatActivity {
 
-    private static final int NUM_OF_DIFFERENCES = 6;
+    private String [] hints = {"Clouds..., top left tree...",
+            "Earring..., her fan...",
+            "Look at her arms and stones..."};
+    private static final int NUM_OF_DIFFERENCES = 6,NUM_OF_HINTS = 3;
+    private int hintCounter = 0;
+    private Button hintButton;
+    private Button hide;
+    private RelativeLayout hintContainer;
     private ImageButton [] differences;
     private boolean [] solveDiff;
 
@@ -36,6 +46,10 @@ public class FindDiffPicActivity extends AppCompatActivity {
         differences[3] = (ImageButton)findViewById(R.id.handFan);
         differences[4] = (ImageButton)findViewById(R.id.armPaint);
         differences[5] = (ImageButton)findViewById(R.id.stone);
+        hintButton = (Button)findViewById(R.id.hint);
+        hintContainer = (RelativeLayout)findViewById(R.id.hintContainer);
+        hide = (Button)findViewById(R.id.hideInHint);
+
         setListeners();
     }
 
@@ -48,6 +62,42 @@ public class FindDiffPicActivity extends AppCompatActivity {
                     findDiff(v);
                 }
             });
+        }
+
+        hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hintCounter == NUM_OF_HINTS){
+                    Toast.makeText(getApplicationContext(),"You don't have hints any more",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(FindDiffPicActivity.this,HintActivity.class);
+                startActivityForResult(intent,hintCounter);
+            }
+        });
+
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hintContainer.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (hintCounter == NUM_OF_HINTS){
+                Toast.makeText(this,"No more hints",Toast.LENGTH_SHORT).show();
+                hintButton.setClickable(false);
+                return;
+            }else{
+                TextView ht = (TextView)findViewById(R.id.hintText);
+                ht.setText("");
+                ht.setText(hints[hintCounter++]);
+                hintContainer.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 

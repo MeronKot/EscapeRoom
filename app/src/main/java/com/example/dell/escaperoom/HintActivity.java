@@ -1,10 +1,13 @@
 package com.example.dell.escaperoom;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dell.escaperoom.Logic.Question;
 //import com.example.dell.escaperoom.Logic.QuestionsHandler;
@@ -48,6 +51,57 @@ public class HintActivity extends AppCompatActivity {
         answer2 = (Button) findViewById(R.id.ans2);
         answer3 = (Button) findViewById(R.id.ans3);
         answer4 = (Button) findViewById(R.id.ans4);
+        answer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (1 == theRightAnswer)
+                {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Wrong answer",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        answer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (2 == theRightAnswer) {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Wrong answer",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        answer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (3 == theRightAnswer)
+                {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Wrong answer",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        answer4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (4 == theRightAnswer)
+                {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Wrong answer",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -57,7 +111,7 @@ public class HintActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 questionList.clear();
-
+                numOfQuest = 0;
                 for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
                     Question quest = questionSnapshot.getValue(Question.class);
                     questionList.add(quest);
@@ -70,6 +124,7 @@ public class HintActivity extends AppCompatActivity {
                 answer2.setText(q.getA2());
                 answer3.setText(q.getA3());
                 answer4.setText(q.getA4());
+                theRightAnswer = q.getAnswer();
             }
 
             @Override

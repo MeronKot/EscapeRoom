@@ -10,14 +10,23 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.escaperoom.Logic.PuzzleLogic;
 
 public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.WinListener {
 
+    private static final int NUM_OF_HINTS = 3;
+    private String [] hints = {"Hint no. 1",
+            "Hint no. 2",
+            "Hint no. 3"};
+    private int hintCounter = 0;
+    private Button hintButton;
+    private Button hide;
+    private RelativeLayout hintContainer;
     private PuzzleLogic logic;
-
     private LinearLayout gameTable;
     private LinearLayout colLayout;
     private DisplayMetrics metrics;
@@ -31,7 +40,47 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
 
+        hintButton = (Button)findViewById(R.id.hint);
+        hintContainer = (RelativeLayout)findViewById(R.id.hintContainer);
+        hide = (Button)findViewById(R.id.hideInHint);
+
+        hintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hintCounter == NUM_OF_HINTS){
+                    Toast.makeText(getApplicationContext(),"You don't have hints any more",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(PuzzleActivity.this,HintActivity.class);
+                startActivityForResult(intent,hintCounter);
+            }
+        });
+
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hintContainer.setVisibility(View.INVISIBLE);
+            }
+        });
+
         initTheBoard();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (hintCounter == NUM_OF_HINTS){
+                Toast.makeText(this,"No more hints",Toast.LENGTH_SHORT).show();
+                hintButton.setClickable(false);
+                return;
+            }else{
+                TextView ht = (TextView)findViewById(R.id.hintText);
+                ht.setText("");
+                ht.setText(hints[hintCounter++]);
+                hintContainer.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 
     private void initTheBoard() {
