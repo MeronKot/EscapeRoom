@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.dell.escaperoom.Database.PlayerHandler;
 import com.example.dell.escaperoom.Logic.GameTimer;
+import com.example.dell.escaperoom.Logic.Player;
 
 import java.math.RoundingMode;
 import java.util.Timer;
@@ -18,13 +20,14 @@ import java.util.TimerTask;
 
 public class Room extends AppCompatActivity {
 
-    private static final int NUM_OF_CHALLENGES = 5;
+    //private static final int NUM_OF_CHALLENGES = 5;
     private ImageButton temp;
     private ImageButton lamp;
     private ImageButton puzzle;
     private ImageButton simon;
     private ImageButton findDiff;
-    private boolean [] challenges;
+    //private boolean [] challenges;
+    private boolean challengeResult;
     public static boolean onGame = false;
     private boolean destroy = false;
     private String theTime = "";
@@ -36,53 +39,63 @@ public class Room extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        challenges = new boolean[NUM_OF_CHALLENGES];
+        //challenges = new boolean[NUM_OF_CHALLENGES];
 
-        temp = (ImageButton)findViewById(R.id.topRightPic);
-        temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this,ChemistryChallenge.class);
-                startActivityForResult(intent,0);
-            }
-        });
+        Player p = PlayerHandler.getInstance().getPlayer();
+        if(p.getLevel1() == 0) {
+            temp = (ImageButton) findViewById(R.id.topRightPic);
+            temp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Room.this, ChemistryChallenge.class);
+                    startActivityForResult(intent, 0);
+                }
+            });
+        }
 
-        lamp = (ImageButton)findViewById(R.id.lamp);
-        lamp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this,LampChallenge.class);
-                startActivityForResult(intent,1);
-            }
-        });
+        if(p.getLevel2() == 0) {
+            lamp = (ImageButton) findViewById(R.id.lamp);
+            lamp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Room.this, LampChallenge.class);
+                    startActivityForResult(intent, 1);
+                }
+            });
+        }
 
-        puzzle = (ImageButton) findViewById(R.id.puzzleBtn);
-        puzzle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this,PuzzleActivity.class);
-                startActivityForResult(intent,2);
-            }
-        });
+        if(p.getLevel3() == 0) {
+            puzzle = (ImageButton) findViewById(R.id.puzzleBtn);
+            puzzle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Room.this, PuzzleActivity.class);
+                    startActivityForResult(intent, 2);
+                }
+            });
+        }
 
-        simon = (ImageButton) findViewById(R.id.simonBtn);
-        simon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this,SimonSaysActivity.class);
-                startActivityForResult(intent,3);
-            }
-        });
+        if(p.getLevel4() == 0) {
+            simon = (ImageButton) findViewById(R.id.simonBtn);
+            simon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Room.this, SimonSaysActivity.class);
+                    startActivityForResult(intent, 3);
+                }
+            });
+        }
 
-        findDiff = (ImageButton)findViewById(R.id.findDiffPic);
-        findDiff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Room.this,FindDiffPicActivity.class);
-                startActivityForResult(intent,4);
-            }
-        });
-
+        if(p.getLevel5() == 0) {
+            findDiff = (ImageButton) findViewById(R.id.findDiffPic);
+            findDiff.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Room.this, FindDiffPicActivity.class);
+                    startActivityForResult(intent, 4);
+                }
+            });
+        }
         startTicking();
     }
 
@@ -91,33 +104,43 @@ public class Room extends AppCompatActivity {
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case 0:
-                    challenges[0] = data.getBooleanExtra("tempChallenge",false);
-                    if(challenges[0])
+                    challengeResult = data.getBooleanExtra("tempChallenge",false);
+                    if(challengeResult) {
                         temp.setVisibility(View.INVISIBLE);
+                        PlayerHandler.getInstance().getPlayer().setLevel1(1);
+                    }
                     checkIfAllChallengesAreDone();
                     break;
                 case 1:
-                    challenges[1] = data.getBooleanExtra("lampChallenge",false);
-                    if(challenges[1])
+                    challengeResult = data.getBooleanExtra("lampChallenge",false);
+                    if(challengeResult) {
                         lamp.setVisibility(View.INVISIBLE);
+                        PlayerHandler.getInstance().getPlayer().setLevel2(1);
+                    }
                     checkIfAllChallengesAreDone();
                     break;
                 case 2:
-                    challenges[2] = data.getBooleanExtra("puzzleChallenge",false);
-                    if(challenges[2])
+                    challengeResult = data.getBooleanExtra("puzzleChallenge",false);
+                    if(challengeResult) {
                         puzzle.setVisibility(View.INVISIBLE);
+                        PlayerHandler.getInstance().getPlayer().setLevel3(1);
+                    }
                     checkIfAllChallengesAreDone();
                     break;
                 case 3:
-                    challenges[3] = data.getBooleanExtra("simonChallenge",false);
-                    if(challenges[3])
+                    challengeResult = data.getBooleanExtra("simonChallenge",false);
+                    if(challengeResult) {
                         simon.setVisibility(View.INVISIBLE);
+                        PlayerHandler.getInstance().getPlayer().setLevel4(1);
+                    }
                     checkIfAllChallengesAreDone();
                     break;
                 case 4:
-                    challenges[4] = data.getBooleanExtra("findDiffPic",false);
-                    if(challenges[4])
+                    challengeResult = data.getBooleanExtra("findDiffPic",false);
+                    if(challengeResult) {
                         findDiff.setVisibility(View.INVISIBLE);
+                        PlayerHandler.getInstance().getPlayer().setLevel5(1);
+                    }
                     checkIfAllChallengesAreDone();
                 default:
                     break;
@@ -126,12 +149,10 @@ public class Room extends AppCompatActivity {
     }
 
     private void checkIfAllChallengesAreDone(){
-        int i = 0;
-        for(boolean challenge: challenges)
-            if(challenge)
-                i++;
-        if(i == NUM_OF_CHALLENGES){
+        Player p = PlayerHandler.getInstance().getPlayer();
+        if(p.getLevel1() == 1 && p.getLevel2() == 1 && p.getLevel3() == 1 && p.getLevel4() == 1 && p.getLevel5() == 1){
             Toast.makeText(this,"Congratulations, you ran away from this room, see you!",Toast.LENGTH_LONG).show();
+            //TODO: something in database?
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -154,13 +175,16 @@ public class Room extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         onGame = false;
     }
 
     public void startTicking() {
-        /*Thread t = */new Thread(new Runnable() {
+        if(PlayerHandler.getInstance().getPlayer().getTime() != null){
+            GameTimer.getInstance().setTime(PlayerHandler.getInstance().getPlayer().getTime());
+        }
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 while (!destroy) {
@@ -175,16 +199,15 @@ public class Room extends AppCompatActivity {
                         //Log.d("Timer: ", GameTimer.getInstance().toString());
                         theTime = GameTimer.getInstance().toString();
                     }
-                        /*runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //timerText.setText(timer.toString());
+                            PlayerHandler.getInstance().getPlayer().setTime(theTime.toString());
                             Log.d("Timer: ", GameTimer.getInstance().toString());
                         }
-                    });*/
+                    });
                 }
             }
         }).start();
-        //t.start();
     }
 }

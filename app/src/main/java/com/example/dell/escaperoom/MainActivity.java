@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.dell.escaperoom.Database.PlayerHandler;
+import com.example.dell.escaperoom.Logic.Player;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -61,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+
+        PlayerHandler.getInstance();
+
+        Bundle bundle = getIntent().getExtras();
+        String id = bundle.getString(LoginActivity.ID);
+        String name = bundle.getString(LoginActivity.NAME);
+
+
+        PlayerHandler.getInstance().setPlayer(id, name);
 
 
         records = (ImageButton) findViewById(R.id.records);
@@ -128,16 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void disconnectFromFacebook() {
 
-        //TODO: Some animation of thinking
-        //logout.setClickable(false);
 
-        /*if (AccessToken.getCurrentAccessToken() == null) {
-            return; // already logged out
-        }
-
-        if (FirebaseAuth.getInstance() != null)
-            FirebaseAuth.getInstance().signOut();
-*/
         if(mAuth != null)
             mAuth.signOut();
         if(LoginManager.getInstance() != null)
@@ -156,27 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).executeAsync();
-        /*//UnRegistering the Auth. Listener.
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }*/
 
-        /*new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                .Callback() {
-            @Override
-            public void onCompleted(GraphResponse graphResponse) {
-
-                LoginManager.getInstance().logOut();
-
-
-
-            }
-        }).executeAsync();
-*/
-        //nt intent = new Intent(MainActivity.this, LoginActivity.class);
-        //startActivity(intent);
-        //logout.setClickable(true);
-        //finish();
     }
 
     @Override

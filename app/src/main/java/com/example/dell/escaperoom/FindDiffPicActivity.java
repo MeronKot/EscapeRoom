@@ -1,7 +1,6 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -105,37 +104,37 @@ public class FindDiffPicActivity extends AppCompatActivity {
         switch (v.getId()){
             case R.id.topLeftTree:
                 v.setClickable(false);
-                v.setBackgroundResource(R.drawable.v);
+                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[0] = true;
                 checkIfDone();
                 break;
             case R.id.cloud:
                 v.setClickable(false);
-                v.setBackgroundResource(R.drawable.v);
+                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[1] = true;
                 checkIfDone();
                 break;
             case R.id.earring:
                 v.setClickable(false);
-                v.setBackgroundResource(R.drawable.v);
+                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[2] = true;
                 checkIfDone();
                 break;
             case R.id.handFan:
                 v.setClickable(false);
-                v.setBackgroundResource(R.drawable.v);
+                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[3] = true;
                 checkIfDone();
                 break;
             case R.id.armPaint:
                 v.setClickable(false);
-                v.setBackgroundResource(R.drawable.v);
+                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[4] = true;
                 checkIfDone();
                 break;
             case R.id.stone:
                 v.setClickable(false);
-                v.setBackgroundResource(R.drawable.v);
+                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[5] = true;
                 checkIfDone();
                 break;

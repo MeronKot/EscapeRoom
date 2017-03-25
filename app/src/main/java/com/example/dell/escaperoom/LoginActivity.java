@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private String userName;
     private String uid;
     private static final int RC_SIGN_IN = 0;
+    public static final String ID = "id";
+    public static final String NAME = "name";
 
     public static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -56,14 +58,16 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
          if (mAuth.getCurrentUser() != null) {
-            // already signed in
+             // already signed in
              uid = mAuth.getCurrentUser().getUid();
              userName = mAuth.getCurrentUser().getDisplayName();
-             Log.d("Auth", "id: " + uid +" name: "+ userName);
-            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
+             Log.d("Auth", "id: " + uid + " name: " + userName);
+             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+             intent.putExtra(ID , uid);
+             intent.putExtra(NAME , userName);
+             startActivity(intent);
+             finish();
+         } else {
             // not signed in
              startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                      .setProviders(AuthUI.FACEBOOK_PROVIDER,

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dell.escaperoom.Database.PlayerHandler;
 import com.example.dell.escaperoom.Logic.Question;
 //import com.example.dell.escaperoom.Logic.QuestionsHandler;
 import com.google.firebase.database.DataSnapshot;
@@ -119,12 +120,21 @@ public class HintActivity extends AppCompatActivity {
                 }
 
                 Question q = getQuestion();
-                quest.setText(q.getQuestion());
-                answer1.setText(q.getA1());
-                answer2.setText(q.getA2());
-                answer3.setText(q.getA3());
-                answer4.setText(q.getA4());
-                theRightAnswer = q.getAnswer();
+                if(q != null) {
+                    quest.setText(q.getQuestion());
+                    answer1.setText(q.getA1());
+                    answer2.setText(q.getA2());
+                    answer3.setText(q.getA3());
+                    answer4.setText(q.getA4());
+                    theRightAnswer = q.getAnswer();
+                }
+                else{
+                    quest.setText("no hints for you");
+                    answer1.setText("");
+                    answer2.setText("");
+                    answer3.setText("");
+                    answer4.setText("");
+                }
             }
 
             @Override
@@ -137,9 +147,13 @@ public class HintActivity extends AppCompatActivity {
     }
 
     public Question getQuestion(){
-        Random random = new Random();
-        int qIdx = random.nextInt(numOfQuest);
-        return questionList.get(qIdx);
+        int qIdx = PlayerHandler.getInstance().getPlayer().getHints();
+        if(questionList.size() > qIdx) {
+            PlayerHandler.getInstance().getPlayer().setHints(qIdx + 1);
+            return questionList.get(qIdx);
+        }
+        else
+            return null;
     }
 
     @Override
