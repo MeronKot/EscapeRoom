@@ -5,12 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.escaperoom.Database.PlayerHandler;
-import com.example.dell.escaperoom.Logic.Question;
+import com.example.dell.escaperoom.Database.DBObjects.Question;
 //import com.example.dell.escaperoom.Logic.QuestionsHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class HintActivity extends AppCompatActivity {
 

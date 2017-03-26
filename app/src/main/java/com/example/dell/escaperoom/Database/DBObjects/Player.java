@@ -1,4 +1,4 @@
-package com.example.dell.escaperoom.Logic;
+package com.example.dell.escaperoom.Database.DBObjects;
 
 import com.example.dell.escaperoom.Database.PlayerHandler;
 

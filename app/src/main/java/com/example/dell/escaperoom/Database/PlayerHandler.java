@@ -1,11 +1,6 @@
 package com.example.dell.escaperoom.Database;
 
-import android.text.TextUtils;
-import android.widget.ImageButton;
-
-import com.example.dell.escaperoom.Logic.Player;
-import com.example.dell.escaperoom.Logic.Question;
-import com.example.dell.escaperoom.MainActivity;
+import com.example.dell.escaperoom.Database.DBObjects.Player;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

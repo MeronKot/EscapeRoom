@@ -1,7 +1,6 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,9 +11,8 @@ import android.widget.Toast;
 
 import com.example.dell.escaperoom.Database.PlayerHandler;
 import com.example.dell.escaperoom.Logic.GameTimer;
-import com.example.dell.escaperoom.Logic.Player;
+import com.example.dell.escaperoom.Database.DBObjects.Player;
 
-import java.math.RoundingMode;
 import java.util.Timer;
 import java.util.TimerTask;
 

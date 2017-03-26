@@ -44,10 +44,11 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".HintActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".FindDiffPicActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".RecordsActivity"></activity>
     </application>
 
 </manifest>
