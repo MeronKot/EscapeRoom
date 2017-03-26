@@ -96,6 +96,7 @@ public class Room extends AppCompatActivity {
                 }
             });
         }
+        onGame = true;
         startTicking();
     }
 

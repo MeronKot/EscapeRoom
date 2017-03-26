@@ -1,9 +1,11 @@
 package com.example.dell.escaperoom.Database;
 
 import android.text.TextUtils;
+import android.widget.ImageButton;
 
 import com.example.dell.escaperoom.Logic.Player;
 import com.example.dell.escaperoom.Logic.Question;
+import com.example.dell.escaperoom.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +21,7 @@ public class PlayerHandler {
     private Player player;
     private DatabaseReference databasePlayers;
     private boolean loading = true;
+    private boolean firstUpdate = true;
 
 
     private PlayerHandler(){
@@ -42,16 +45,17 @@ public class PlayerHandler {
         databasePlayers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                player = dataSnapshot.getValue(Player.class);
-                if(player == null){
-                    player = new Player();
-                    player.setName(name);
-                    player.setId(id);
+                if(firstUpdate) {
+                    firstUpdate = false;
+                    player = dataSnapshot.getValue(Player.class);
+                    if (player == null) {
+                        player = new Player();
+                        player.setName(name);
+                        player.setId(id);
+                    }
+                    loading = false;
+                    //MainActivity.startValid(true);
                 }
-                loading = false;
-
-
             }
 
             @Override
@@ -68,4 +72,7 @@ public class PlayerHandler {
         }
     }
 
+    public void setFirstUpdate(boolean bool){
+        firstUpdate = bool;
+    }
 }

@@ -55,12 +55,21 @@ public class GameTimer {
     }
 
     public void setTime(String time) {
-        String[] times = time.split(":");
-        hour = Integer.parseInt(times[0]);
-        min = Integer.parseInt(times[1]);
-        sec = Integer.parseInt(times[2]);
+        try {
+            String[] times = time.split(":");
+            hour = Integer.parseInt(times[0]);
+            min = Integer.parseInt(times[1]);
+            sec = Integer.parseInt(times[2]);
 
-        secCounter = hour * 3600 + min * 60 + sec;
+            secCounter = hour * 3600 + min * 60 + sec;
+        }
+        catch (Exception e){
+            hour = 0;
+            min = 0;
+            sec = 0;
+
+            secCounter = 0;
+        }
     }
 
 

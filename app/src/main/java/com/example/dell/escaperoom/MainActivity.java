@@ -20,16 +20,22 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private String userName;
+    private String uid;
+    private static final int RC_SIGN_IN = 0;
 
     private ImageButton logout;
-    private ImageButton start;
+    private static ImageButton start;
     private ImageButton records;
     private ImageButton instructions;
 
@@ -40,45 +46,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
 
+        if (mAuth.getCurrentUser() != null) {
+            // already signed in
+            uid = mAuth.getCurrentUser().getUid();
+            userName = mAuth.getCurrentUser().getDisplayName();
+            Log.d("Auth", "id: " + uid + " name: " + userName);
+            PlayerHandler.getInstance().setFirstUpdate(true);
+            initActivity();
 
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    //Log.d(TAG, "onAuthStateChanged:signed_in");
+        } else {
+            // not signed in
+            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+                    .setProviders(AuthUI.FACEBOOK_PROVIDER,
+                            AuthUI.GOOGLE_PROVIDER).build(), RC_SIGN_IN);
+        }
+    }
 
-                    /*Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
-                    finish();*/
-
-                } else {
-                    // User is signed out
-                    //Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        };
-
-
-        PlayerHandler.getInstance();
-
-        Bundle bundle = getIntent().getExtras();
-        String id = bundle.getString(LoginActivity.ID);
-        String name = bundle.getString(LoginActivity.NAME);
-
-
-        PlayerHandler.getInstance().setPlayer(id, name);
+    public void initActivity(){
+        PlayerHandler.getInstance().setPlayer(uid, userName);
 
 
         records = (ImageButton) findViewById(R.id.records);
         instructions = (ImageButton) findViewById(R.id.instructions);
 
         start = (ImageButton) findViewById(R.id.start);
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,17 +104,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //startValid(false);
         logout = (ImageButton) findViewById(R.id.logout_button);
         //logout.setClickable(true);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                disconnectFromFacebook();
+                AuthUI.getInstance().signOut(MainActivity.this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+                                .setProviders(AuthUI.FACEBOOK_PROVIDER,
+                                        AuthUI.GOOGLE_PROVIDER).build(), RC_SIGN_IN);
+                    }
+                });
             }
         });
     }
-
     private void hide(boolean toHide) {
         if(toHide){
             start.setVisibility(View.INVISIBLE);
@@ -138,34 +137,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void disconnectFromFacebook() {
-
-
-        if(mAuth != null)
-            mAuth.signOut();
-        if(LoginManager.getInstance() != null)
-            LoginManager.getInstance().logOut();
-
-        if (AccessToken.getCurrentAccessToken() == null) {
-            return; // already logged out
-        }
-
-        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                .Callback() {
-            @Override
-            public void onCompleted(GraphResponse graphResponse) {
-
-                LoginManager.getInstance().logOut();
-
-            }
-        }).executeAsync();
-
-    }
-
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
 
         ImageView openDoor = (ImageView) findViewById(R.id.openDoor);
         openDoor.setVisibility(View.INVISIBLE);
@@ -175,8 +149,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN){
+            if(resultCode == RESULT_OK){
+                //mAuth.getCurrentUser().getEmail();
+                uid = mAuth.getCurrentUser().getUid();
+                userName = mAuth.getCurrentUser().getDisplayName();
+                Log.d("Auth", "id: " + uid +" name: "+ userName);
+
+                PlayerHandler.getInstance().setFirstUpdate(true);
+                initActivity();
+            }
+            else{
+
+            }
         }
     }
 }
+
