@@ -48,7 +48,8 @@
         <activity
             android:name=".FindDiffPicActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".RecordsActivity"></activity>
+        <activity android:name=".RecordsActivity" />
+        <activity android:name=".Database.WinActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.dell.escaperoom.Database.PlayerHandler;
+import com.example.dell.escaperoom.Database.WinActivity;
 import com.example.dell.escaperoom.Logic.GameTimer;
 import com.example.dell.escaperoom.Database.DBObjects.Player;
 
@@ -40,62 +41,70 @@ public class Room extends AppCompatActivity {
         //challenges = new boolean[NUM_OF_CHALLENGES];
 
         Player p = PlayerHandler.getInstance().getPlayer();
-        if(p.getLevel1() == 0) {
-            temp = (ImageButton) findViewById(R.id.topRightPic);
-            temp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Room.this, ChemistryChallenge.class);
-                    startActivityForResult(intent, 0);
-                }
-            });
-        }
 
-        if(p.getLevel2() == 0) {
-            lamp = (ImageButton) findViewById(R.id.lamp);
-            lamp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Room.this, LampChallenge.class);
-                    startActivityForResult(intent, 1);
-                }
-            });
+        if(p.isWinner()){
+            Intent intent = new Intent(Room.this, WinActivity.class);
+            startActivity(intent);
+            finish();
         }
+        else {
+            if (p.getLevel1() == 0) {
+                temp = (ImageButton) findViewById(R.id.topRightPic);
+                temp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Room.this, ChemistryChallenge.class);
+                        startActivityForResult(intent, 0);
+                    }
+                });
+            }
 
-        if(p.getLevel3() == 0) {
-            puzzle = (ImageButton) findViewById(R.id.puzzleBtn);
-            puzzle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Room.this, PuzzleActivity.class);
-                    startActivityForResult(intent, 2);
-                }
-            });
-        }
+            if (p.getLevel2() == 0) {
+                lamp = (ImageButton) findViewById(R.id.lamp);
+                lamp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Room.this, LampChallenge.class);
+                        startActivityForResult(intent, 1);
+                    }
+                });
+            }
 
-        if(p.getLevel4() == 0) {
-            simon = (ImageButton) findViewById(R.id.simonBtn);
-            simon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Room.this, SimonSaysActivity.class);
-                    startActivityForResult(intent, 3);
-                }
-            });
-        }
+            if (p.getLevel3() == 0) {
+                puzzle = (ImageButton) findViewById(R.id.puzzleBtn);
+                puzzle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Room.this, PuzzleActivity.class);
+                        startActivityForResult(intent, 2);
+                    }
+                });
+            }
 
-        if(p.getLevel5() == 0) {
-            findDiff = (ImageButton) findViewById(R.id.findDiffPic);
-            findDiff.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Room.this, FindDiffPicActivity.class);
-                    startActivityForResult(intent, 4);
-                }
-            });
+            if (p.getLevel4() == 0) {
+                simon = (ImageButton) findViewById(R.id.simonBtn);
+                simon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Room.this, SimonSaysActivity.class);
+                        startActivityForResult(intent, 3);
+                    }
+                });
+            }
+
+            if (p.getLevel5() == 0) {
+                findDiff = (ImageButton) findViewById(R.id.findDiffPic);
+                findDiff.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Room.this, FindDiffPicActivity.class);
+                        startActivityForResult(intent, 4);
+                    }
+                });
+            }
+            onGame = true;
+            startTicking();
         }
-        onGame = true;
-        startTicking();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -149,12 +158,14 @@ public class Room extends AppCompatActivity {
 
     private void checkIfAllChallengesAreDone(){
         Player p = PlayerHandler.getInstance().getPlayer();
-        if(p.getLevel1() == 1 && p.getLevel2() == 1 && p.getLevel3() == 1 && p.getLevel4() == 1 && p.getLevel5() == 1){
+        if(p.isWinner()){
             Toast.makeText(this,"Congratulations, you ran away from this room, see you!",Toast.LENGTH_LONG).show();
             //TODO: something in database?
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    Intent intent = new Intent(Room.this, WinActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             },1000);

@@ -100,4 +100,9 @@ public class Player {
         PlayerHandler.getInstance().updatePlayer();
     }
 
+    public boolean isWinner() {
+        if(level1 == 1 && level2 == 1 && level3 == 1 && level4 == 1 && level5 == 1)
+            return true;
+        return false;
+    }
 }
