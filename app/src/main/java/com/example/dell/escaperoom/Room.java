@@ -42,7 +42,7 @@ public class Room extends AppCompatActivity {
 
         Player p = PlayerHandler.getInstance().getPlayer();
 
-        if(p.isWinner()){
+        if(p != null && p.isWinner()){
             Intent intent = new Intent(Room.this, WinActivity.class);
             intent.putExtra("name",p.getName());
             intent.putExtra("time",p.getTime());

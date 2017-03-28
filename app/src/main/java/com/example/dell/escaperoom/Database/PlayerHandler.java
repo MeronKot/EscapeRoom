@@ -21,10 +21,7 @@ public class PlayerHandler {
 
     private PlayerHandler(){
         databasePlayers = FirebaseDatabase.getInstance().getReference("Players");//.child(player.getId());
-
-
     }
-
 
     public static PlayerHandler getInstance() {
         return instance;
