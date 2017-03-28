@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/com_facebook_button_background_color_disabled"
-            android:gravity="center"
+            android:gravity="left"
             android:layout_weight="2"/>
 
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/com_facebook_button_background_color_disabled"
-            android:gravity="center"
+            android:gravity="right"
             android:layout_weight="2"/>
 
     </LinearLayout>

@@ -21,14 +21,16 @@
             android:text="NAME:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="left"
             android:layout_weight="1"/>
 
         <TextView
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:textColor="@color/com_facebook_button_background_color_disabled"
-            android:text="Score:"
+            android:text="SCORE:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:layout_weight="1"/>
 
     </LinearLayout>

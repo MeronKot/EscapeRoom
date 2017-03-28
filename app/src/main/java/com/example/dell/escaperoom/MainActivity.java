@@ -2,6 +2,7 @@ package com.example.dell.escaperoom;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton records;
     private ImageButton instructions;
 
+    private MediaPlayer doorSound;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initActivity(){
         PlayerHandler.getInstance().setPlayer(uid, userName);
-
+        doorSound = MediaPlayer.create(this.getApplicationContext(), R.raw.door_open1);
 
         records = (ImageButton) findViewById(R.id.records);
 
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 openDoorImg.bringToFront();
                 openDoorImg.setBackgroundResource(R.drawable.open_door);
                 ((AnimationDrawable)openDoorImg.getBackground()).start();
-
+                doorSound.start();
                 new CountDownTimer(1200,1000){
 
                     @Override
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, Room.class);
                         startActivity(intent);
                         hide(false);
+
+                        openDoorImg.setVisibility(View.INVISIBLE);
                         //background.setBackgroundResource(R.drawable.background);
                     }
                 }.start();

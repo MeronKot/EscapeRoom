@@ -1,6 +1,8 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -34,11 +36,15 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
     private Display display;
     private int width;
     private int height;
+    private MediaPlayer tap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         hintButton = (Button)findViewById(R.id.hint);
         hintContainer = (RelativeLayout)findViewById(R.id.hintContainer);
@@ -63,7 +69,10 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
             }
         });
 
+        tap = MediaPlayer.create(this.getApplicationContext(), R.raw.tap);
         initTheBoard();
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -97,8 +106,8 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
                 display = manager.getDefaultDisplay();
                 metrics = new DisplayMetrics();
                 display.getMetrics(metrics);
-                width  = metrics.widthPixels /(PuzzleLogic.LENGTH /*+ 1*/);
-                height = metrics.heightPixels/(PuzzleLogic.LENGTH + 1);
+                width  = metrics.widthPixels /(PuzzleLogic.LENGTH )-10;
+                height = metrics.heightPixels/(PuzzleLogic.LENGTH )-50;
                 ViewGroup.LayoutParams buttonParams = new ViewGroup.LayoutParams(width, height);
                 colLayout.addView(logic.getTile(row, col), buttonParams);
 
@@ -109,6 +118,7 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
                     public void onClick(View v) {
 
                         //TODO:
+                        tap.start();
                         logic.buttonClicked(finalRow,finalCol);
                     }
                 });

@@ -1,6 +1,7 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,9 @@ public class Room extends AppCompatActivity {
     private boolean destroy = false;
     private String theTime = "";
     private DatabaseReference databaseRecords;
+
+    private MediaPlayer clockSound;
+    private boolean ticking = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,12 +200,33 @@ public class Room extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         onGame = true;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ticking = true;
+                clockSound = MediaPlayer.create(Room.this, R.raw.clock_sound);
+                while (ticking){
+                   if(!clockSound.isPlaying())
+                   {
+
+                       clockSound.start();
+
+                   }
+                }
+            }
+        }).start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         onGame = false;
+        ticking = false;
+
+        if(clockSound != null) {
+            clockSound.stop();
+        }
     }
 
     public void startTicking() {

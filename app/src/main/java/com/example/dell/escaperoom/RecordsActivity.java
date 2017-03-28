@@ -1,5 +1,6 @@
 package com.example.dell.escaperoom;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -24,6 +25,8 @@ public class RecordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         databaseRecords = FirebaseDatabase.getInstance().getReference("Records");
         recordListView = (ListView) findViewById(R.id.listViewRecords);

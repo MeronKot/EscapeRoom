@@ -1,6 +1,7 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,12 +28,16 @@ public class FindDiffPicActivity extends AppCompatActivity {
     private ImageButton [] differences;
     private boolean [] solveDiff;
 
+    private MediaPlayer tap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_diff_pic);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        tap = MediaPlayer.create(this.getApplicationContext(), R.raw.tap);
 
         solveDiff = new boolean[NUM_OF_DIFFERENCES];
         for(int i = 0 ; i < NUM_OF_DIFFERENCES; i++)
@@ -101,46 +106,54 @@ public class FindDiffPicActivity extends AppCompatActivity {
     }
 
     private void findDiff(View v) {
+
         switch (v.getId()){
             case R.id.topLeftTree:
-                v.setClickable(false);
-                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[0] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_o);
                 checkIfDone();
                 break;
             case R.id.cloud:
-                v.setClickable(false);
-                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[1] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_o);
                 checkIfDone();
                 break;
             case R.id.earring:
-                v.setClickable(false);
-                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[2] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_o);
                 checkIfDone();
                 break;
             case R.id.handFan:
-                v.setClickable(false);
-                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[3] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_o);
                 checkIfDone();
                 break;
             case R.id.armPaint:
-                v.setClickable(false);
-                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[4] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_o);
                 checkIfDone();
                 break;
             case R.id.stone:
-                v.setClickable(false);
-                v.setBackgroundResource(R.drawable.ic_o);
                 solveDiff[5] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_o);
                 checkIfDone();
                 break;
             default:
                 break;
         }
+
     }
 
     private void checkIfDone() {

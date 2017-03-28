@@ -2,6 +2,7 @@ package com.example.dell.escaperoom;
 
 import android.content.Intent;
 import android.content.pm.LabeledIntent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class ChemistryChallenge extends AppCompatActivity {
     private boolean [] tempCorrect;
     private RelativeLayout hintContainer;
     private static final String TAG = "ChemistryChallenge";
+
+    private MediaPlayer labSound;
+    private boolean sound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,11 +192,31 @@ public class ChemistryChallenge extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Room.onGame = true;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sound = true;
+                labSound = MediaPlayer.create(ChemistryChallenge.this, R.raw.laboratory);
+                while (sound){
+                    if(!labSound.isPlaying())
+                    {
+
+                        labSound.start();
+
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Room.onGame = false;
+
+        if(labSound != null) {
+            labSound.stop();
+        }
     }
 }
