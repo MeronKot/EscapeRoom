@@ -44,6 +44,8 @@ public class Room extends AppCompatActivity {
 
         if(p.isWinner()){
             Intent intent = new Intent(Room.this, WinActivity.class);
+            intent.putExtra("name",p.getName());
+            intent.putExtra("time",p.getTime());
             startActivity(intent);
             finish();
         }

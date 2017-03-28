@@ -49,7 +49,9 @@
             android:name=".FindDiffPicActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".RecordsActivity" />
-        <activity android:name=".Database.WinActivity"></activity>
+        <activity android:name=".Database.WinActivity"
+            android:screenOrientation="landscape"
+            android:hardwareAccelerated="false"></activity>
     </application>
 
 </manifest>
