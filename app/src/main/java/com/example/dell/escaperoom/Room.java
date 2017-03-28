@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.dell.escaperoom.Database.DBObjects.Record;
 import com.example.dell.escaperoom.Database.PlayerHandler;
 import com.example.dell.escaperoom.Database.WinActivity;
 import com.example.dell.escaperoom.Logic.GameTimer;
 import com.example.dell.escaperoom.Database.DBObjects.Player;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,6 +33,7 @@ public class Room extends AppCompatActivity {
     public static boolean onGame = false;
     private boolean destroy = false;
     private String theTime = "";
+    private DatabaseReference databaseRecords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class Room extends AppCompatActivity {
         //challenges = new boolean[NUM_OF_CHALLENGES];
 
         Player p = PlayerHandler.getInstance().getPlayer();
+
+        databaseRecords = FirebaseDatabase.getInstance().getReference("Records");
 
         if(p != null && p.isWinner()){
             Intent intent = new Intent(Room.this, WinActivity.class);
@@ -166,6 +172,12 @@ public class Room extends AppCompatActivity {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    Player p = PlayerHandler.getInstance().getPlayer();
+
+                    Record record = new Record();
+                    record.setName(p.getName());
+                    record.setScore(p.getTime());
+                    databaseRecords.child(p.getId()).setValue(record);
                     Intent intent = new Intent(Room.this, WinActivity.class);
                     startActivity(intent);
                     finish();
