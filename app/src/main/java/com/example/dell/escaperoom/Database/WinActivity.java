@@ -1,5 +1,6 @@
 package com.example.dell.escaperoom.Database;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,5 +30,7 @@ public class WinActivity extends AppCompatActivity {
         time.setText(PlayerHandler.getInstance().getPlayer().getTime());
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.animatedfireworksimage);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.fireworks);
+        mp.start();
     }
 }
