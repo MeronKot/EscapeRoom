@@ -2,5 +2,12 @@
     <string name="app_name">EscapeRoom</string>
 
     <string name="facebook_app_id">184488035376899</string>
-
+    <string name="instructions">In this room you need to reveal hidden objects.
+        Each object will open for you a challenge that you have to solve.
+                If you have difficulties during the challenge press \'?\' button to get a hint.
+                In order to see the hint you have to answer correctly multiple choice question.
+                After finishing all the challenges in the room you will escape from this room.</string>
+    <string name="welcome">Welcome!</string>
+    <string name="youWin">you finished this room.</string>
+    <string name="time">Time:</string>
 </resources>

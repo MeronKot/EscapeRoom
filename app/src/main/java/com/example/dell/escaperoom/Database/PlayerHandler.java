@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PlayerHandler {
     private static PlayerHandler instance = new PlayerHandler();
-    private Player player;
+    private Player player = null;
     private DatabaseReference databasePlayers;
     private boolean loading = true;
     private boolean firstUpdate = true;
@@ -29,6 +29,10 @@ public class PlayerHandler {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public boolean getFirstUpdate(){
+        return firstUpdate;
     }
 
     public void setPlayer(final String id, final String name) {

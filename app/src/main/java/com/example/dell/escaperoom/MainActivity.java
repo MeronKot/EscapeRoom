@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initActivity(){
         PlayerHandler.getInstance().setPlayer(uid, userName);
+
         doorSound = MediaPlayer.create(this.getApplicationContext(), R.raw.door_open1);
 
         records = (ImageButton) findViewById(R.id.records);
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
     }
     private void hide(boolean toHide) {
         if(toHide){

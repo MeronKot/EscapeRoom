@@ -12,14 +12,16 @@ public class Player {
     private String id;
     private String name;
     private String time;
-    private int level1;
-    private int level2;
-    private int level3;
-    private int level4;
-    private int level5;
+    private int level1 = 0;
+    private int level2 = 0;
+    private int level3 = 0;
+    private int level4 = 0;
+    private int level5 = 0;
     private int hints;
 
 
+    public Player(){
+    }
     public String getName() {
         return name;
     }

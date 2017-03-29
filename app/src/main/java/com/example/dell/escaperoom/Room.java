@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.dell.escaperoom.Database.DBObjects.Record;
 import com.example.dell.escaperoom.Database.PlayerHandler;
-import com.example.dell.escaperoom.Database.WinActivity;
 import com.example.dell.escaperoom.Logic.GameTimer;
 import com.example.dell.escaperoom.Database.DBObjects.Player;
 import com.google.firebase.database.DatabaseReference;
@@ -47,9 +46,12 @@ public class Room extends AppCompatActivity {
         actionBar.hide();
 
         //challenges = new boolean[NUM_OF_CHALLENGES];
-
         Player p = PlayerHandler.getInstance().getPlayer();
-
+        //while((p=PlayerHandler.getInstance().getPlayer()) == null);
+        if(p==null){
+            Toast.makeText(this, "Connection Failed!", Toast.LENGTH_LONG).show();
+            finish();
+        }
         databaseRecords = FirebaseDatabase.getInstance().getReference("Records");
 
         if(p != null && p.isWinner()){

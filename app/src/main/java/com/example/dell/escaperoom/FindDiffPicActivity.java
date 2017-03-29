@@ -112,42 +112,42 @@ public class FindDiffPicActivity extends AppCompatActivity {
                 solveDiff[0] = true;
                 v.setClickable(false);
                 tap.start();
-                v.setBackgroundResource(R.drawable.ic_o);
+                v.setBackgroundResource(R.drawable.ic_fail);
                 checkIfDone();
                 break;
             case R.id.cloud:
                 solveDiff[1] = true;
                 v.setClickable(false);
                 tap.start();
-                v.setBackgroundResource(R.drawable.ic_o);
+                v.setBackgroundResource(R.drawable.ic_fail);
                 checkIfDone();
                 break;
             case R.id.earring:
                 solveDiff[2] = true;
                 v.setClickable(false);
                 tap.start();
-                v.setBackgroundResource(R.drawable.ic_o);
+                v.setBackgroundResource(R.drawable.ic_fail);
                 checkIfDone();
                 break;
             case R.id.handFan:
                 solveDiff[3] = true;
                 v.setClickable(false);
                 tap.start();
-                v.setBackgroundResource(R.drawable.ic_o);
+                v.setBackgroundResource(R.drawable.ic_fail);
                 checkIfDone();
                 break;
             case R.id.armPaint:
                 solveDiff[4] = true;
                 v.setClickable(false);
                 tap.start();
-                v.setBackgroundResource(R.drawable.ic_o);
+                v.setBackgroundResource(R.drawable.ic_fail);
                 checkIfDone();
                 break;
             case R.id.stone:
                 solveDiff[5] = true;
                 v.setClickable(false);
                 tap.start();
-                v.setBackgroundResource(R.drawable.ic_o);
+                v.setBackgroundResource(R.drawable.ic_fail);
                 checkIfDone();
                 break;
             default:

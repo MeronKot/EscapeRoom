@@ -1,4 +1,4 @@
-package com.example.dell.escaperoom.Database;
+package com.example.dell.escaperoom;
 
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.dell.escaperoom.Database.DBObjects.Player;
+import com.example.dell.escaperoom.Database.PlayerHandler;
 import com.example.dell.escaperoom.Logic.GifImageView;
 import com.example.dell.escaperoom.R;
 
@@ -26,11 +27,11 @@ public class WinActivity extends AppCompatActivity {
 
         //nameText.setText(getIntent().getStringExtra("name"));
        // time.setText(getIntent().getStringExtra("time"));
-        nameText.setText(PlayerHandler.getInstance().getPlayer().getName());
+        nameText.setText("Congratulations "+PlayerHandler.getInstance().getPlayer().getName());
         time.setText(PlayerHandler.getInstance().getPlayer().getTime());
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.animatedfireworksimage);
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.fireworks);
-        mp.start();
+        //mp.start();
     }
 }
