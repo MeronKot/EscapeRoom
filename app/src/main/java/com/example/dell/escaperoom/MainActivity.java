@@ -1,26 +1,39 @@
 package com.example.dell.escaperoom;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.dell.escaperoom.Database.DBObjects.Player;
 import com.example.dell.escaperoom.Database.PlayerHandler;
+import com.example.dell.escaperoom.Logic.ConnectivityReceiver;
+import com.example.dell.escaperoom.Logic.MyApplication;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Timer;
+import java.util.TimerTask;
 
+public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
+
+    private static final String TAG = "MainActivity";
     private FirebaseAuth mAuth;
 
     private String userName;
@@ -51,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Auth", "id: " + uid + " name: " + userName);
             PlayerHandler.getInstance().setFirstUpdate(true);
             initActivity();
-
         } else {
             // not signed in
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
@@ -60,7 +72,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void initActivity(){
+    private boolean checkConnection() {
+        return ConnectivityReceiver.isConnected();
+        //showSnack(isConnected);
+    }
+
+    private void showSnack(boolean isConnected) {
+        String message;
+        int color;
+        if (isConnected) {
+            message = "Good! Connected to Internet";
+            color = Color.WHITE;
+        } else {
+            message = "Sorry! Not connected to internet";
+            color = Color.RED;
+        }
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
+    }
+
+    public void initActivity() {
         PlayerHandler.getInstance().setPlayer(uid, userName);
 
         doorSound = MediaPlayer.create(this.getApplicationContext(), R.raw.door_open1);
@@ -70,6 +106,13 @@ public class MainActivity extends AppCompatActivity {
         records.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (PlayerHandler.getInstance().getPlayer() == null) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Log.d(TAG,e.getMessage());
+                    }
+                }
                 Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
                 startActivity(intent);
             }
@@ -78,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         instructions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,InstructionActivity.class);
+                Intent intent = new Intent(MainActivity.this, InstructionActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,6 +131,19 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!checkConnection()) {
+                    showSnack(false);
+                    return;
+                }
+
+                if(PlayerHandler.getInstance().getPlayer() == null){
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Log.d(TAG,e.getMessage());
+                    }
+                }
+
                 final ImageView openDoorImg = (ImageView) findViewById(R.id.openDoor);
                 //final RelativeLayout background = (RelativeLayout) findViewById(R.id.activity_main);
                 hide(true);
@@ -95,25 +151,23 @@ public class MainActivity extends AppCompatActivity {
                 openDoorImg.setVisibility(View.VISIBLE);
                 openDoorImg.bringToFront();
                 openDoorImg.setBackgroundResource(R.drawable.open_door);
-                ((AnimationDrawable)openDoorImg.getBackground()).start();
+                ((AnimationDrawable) openDoorImg.getBackground()).start();
                 doorSound.start();
-                new CountDownTimer(1200,1000){
+                new CountDownTimer(1200, 1000) {
 
                     @Override
-                    public void onTick(long millisUntilFinished) {}
+                    public void onTick(long millisUntilFinished) {
+                    }
 
                     @Override
                     public void onFinish() {
                         Intent intent = new Intent(MainActivity.this, Room.class);
                         startActivity(intent);
                         hide(false);
-
                         openDoorImg.setVisibility(View.INVISIBLE);
                         //background.setBackgroundResource(R.drawable.background);
                     }
                 }.start();
-
-
 
 
             }
@@ -137,14 +191,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     private void hide(boolean toHide) {
-        if(toHide){
+        if (toHide) {
             start.setVisibility(View.INVISIBLE);
             logout.setVisibility(View.INVISIBLE);
             instructions.setVisibility(View.INVISIBLE);
             records.setVisibility(View.INVISIBLE);
-        }
-        else{
+        } else {
             start.setVisibility(View.VISIBLE);
             logout.setVisibility(View.VISIBLE);
             instructions.setVisibility(View.VISIBLE);
@@ -168,19 +222,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.getInstance().setConnectivityListener(this);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
-            if(resultCode == RESULT_OK){
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
                 //mAuth.getCurrentUser().getEmail();
                 uid = mAuth.getCurrentUser().getUid();
                 userName = mAuth.getCurrentUser().getDisplayName();
-                Log.d("Auth", "id: " + uid +" name: "+ userName);
+                Log.d("Auth", "id: " + uid + " name: " + userName);
 
                 PlayerHandler.getInstance().setFirstUpdate(true);
                 initActivity();
-            }
-            else{
+            } else {
 
             }
         }

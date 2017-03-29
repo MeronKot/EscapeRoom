@@ -2,6 +2,7 @@ package com.example.dell.escaperoom;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ public class FindDiffPicActivity extends AppCompatActivity {
 
     private String [] hints = {"Clouds..., top left tree...",
             "Earring..., her fan...",
-            "Look at her arms and stones..."};
-    private static final int NUM_OF_DIFFERENCES = 6,NUM_OF_HINTS = 3;
+            "Look at her arms and stones...",
+            "Window, grass...",
+            "Below her fan, her dress..."};
+    private static final int NUM_OF_DIFFERENCES = 10,NUM_OF_HINTS = 5;
     private int hintCounter = 0;
     private Button hintButton;
     private Button hide;
@@ -50,6 +53,10 @@ public class FindDiffPicActivity extends AppCompatActivity {
         differences[3] = (ImageButton)findViewById(R.id.handFan);
         differences[4] = (ImageButton)findViewById(R.id.armPaint);
         differences[5] = (ImageButton)findViewById(R.id.stone);
+        differences[6] = (ImageButton)findViewById(R.id.window);
+        differences[7] = (ImageButton)findViewById(R.id.underFan);
+        differences[8] = (ImageButton)findViewById(R.id.dress);
+        differences[9] = (ImageButton)findViewById(R.id.grass);
         hintButton = (Button)findViewById(R.id.hint);
         hintContainer = (RelativeLayout)findViewById(R.id.hintContainer);
         hide = (Button)findViewById(R.id.hideInHint);
@@ -145,6 +152,34 @@ public class FindDiffPicActivity extends AppCompatActivity {
                 break;
             case R.id.stone:
                 solveDiff[5] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_fail);
+                checkIfDone();
+                break;
+            case R.id.window:
+                solveDiff[6] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_fail);
+                checkIfDone();
+                break;
+            case R.id.underFan:
+                solveDiff[7] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_fail);
+                checkIfDone();
+                break;
+            case R.id.dress:
+                solveDiff[8] = true;
+                v.setClickable(false);
+                tap.start();
+                v.setBackgroundResource(R.drawable.ic_fail);
+                checkIfDone();
+                break;
+            case R.id.grass:
+                solveDiff[9] = true;
                 v.setClickable(false);
                 tap.start();
                 v.setBackgroundResource(R.drawable.ic_fail);

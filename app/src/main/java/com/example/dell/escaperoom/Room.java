@@ -48,10 +48,6 @@ public class Room extends AppCompatActivity {
         //challenges = new boolean[NUM_OF_CHALLENGES];
         Player p = PlayerHandler.getInstance().getPlayer();
         //while((p=PlayerHandler.getInstance().getPlayer()) == null);
-        if(p==null){
-            Toast.makeText(this, "Connection Failed!", Toast.LENGTH_LONG).show();
-            finish();
-        }
         databaseRecords = FirebaseDatabase.getInstance().getReference("Records");
 
         if(p != null && p.isWinner()){

@@ -4,8 +4,10 @@
     package="com.example.dell.escaperoom">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Logic.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_esc_icon"
@@ -54,6 +56,16 @@
             android:hardwareAccelerated="false"
             android:screenOrientation="landscape" />
         <activity android:name=".InstructionActivity" />
+
+        <receiver
+            android:name=".Logic.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>
