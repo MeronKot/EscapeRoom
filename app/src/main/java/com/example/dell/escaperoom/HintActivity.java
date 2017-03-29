@@ -35,6 +35,7 @@ public class HintActivity extends AppCompatActivity {
     private DatabaseReference databaseQuestions;
 
     private List<Question> questionList;
+    private List<Integer> keys;
 
 
     @Override
@@ -46,6 +47,7 @@ public class HintActivity extends AppCompatActivity {
 
         databaseQuestions = FirebaseDatabase.getInstance().getReference("Questions");
         questionList = new ArrayList<Question>();
+        keys = new ArrayList<Integer>();
 
         //Question q = QuestionsHandler.getInstance().getQuestion();
         quest = (TextView) findViewById(R.id.theQuest);
@@ -113,10 +115,12 @@ public class HintActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 questionList.clear();
+                keys.clear();
                 numOfQuest = 0;
                 for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
                     Question quest = questionSnapshot.getValue(Question.class);
                     questionList.add(quest);
+                    keys.add(Integer.parseInt(questionSnapshot.getKey()));
                     numOfQuest++;
                 }
 
@@ -130,11 +134,12 @@ public class HintActivity extends AppCompatActivity {
                     theRightAnswer = q.getAnswer();
                 }
                 else{
-                    quest.setText("no hints for you");
+                    quest.setText("no hints for you, wait for update");
                     answer1.setText("");
                     answer2.setText("");
                     answer3.setText("");
                     answer4.setText("");
+                    //Toast.makeText(this, "Connection Failed!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -149,9 +154,12 @@ public class HintActivity extends AppCompatActivity {
 
     public Question getQuestion(){
         int qIdx = PlayerHandler.getInstance().getPlayer().getHints();
+        Question q;
+        int index;
         if(questionList.size() > qIdx) {
             PlayerHandler.getInstance().getPlayer().setHints(qIdx + 1);
-            return questionList.get(qIdx);
+            index = keys.indexOf(qIdx + 1);
+            return questionList.get(index);
         }
         else
             return null;
