@@ -1,5 +1,10 @@
 package com.example.dell.escaperoom.Database;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+
 import com.example.dell.escaperoom.Database.DBObjects.Player;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by yaelgersh on 25/03/2017.
  */
 
-public class PlayerHandler {
+public class PlayerHandler/* extends Service*/ {
     private static PlayerHandler instance = new PlayerHandler();
     private Player player = null;
     private DatabaseReference databasePlayers;
@@ -22,6 +27,12 @@ public class PlayerHandler {
     private PlayerHandler(){
         databasePlayers = FirebaseDatabase.getInstance().getReference("Players");//.child(player.getId());
     }
+
+    /*@Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }*/
 
     public static PlayerHandler getInstance() {
         return instance;

@@ -36,7 +36,9 @@ public class Player {
 
     public void setTime(String time) {
         this.time = time;
-        PlayerHandler.getInstance().updatePlayer();
+        if(time!="" && time != null){
+            PlayerHandler.getInstance().updatePlayer();
+        }
     }
 
     public int getLevel1() {

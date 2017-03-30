@@ -245,14 +245,8 @@ public class Room extends AppCompatActivity {
                         GameTimer.getInstance().tick();
                         //Log.d("Timer: ", GameTimer.getInstance().toString());
                         theTime = GameTimer.getInstance().toString();
+                        PlayerHandler.getInstance().getPlayer().setTime(theTime.toString());
                     }
-                        runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            PlayerHandler.getInstance().getPlayer().setTime(theTime.toString());
-                            Log.d("Timer: ", GameTimer.getInstance().toString());
-                        }
-                    });
                 }
             }
         }).start();

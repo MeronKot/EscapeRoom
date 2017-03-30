@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     private ImageButton instructions;
 
     private MediaPlayer doorSound;
+
+    private static final int PROGRESS = 1;
+
+    private ProgressBar mProgress;
+    private int mProgressStatus = 0;
+
+   // private Handler mHandler = new Handler();
 
 
     @Override
@@ -99,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     public void initActivity() {
         PlayerHandler.getInstance().setPlayer(uid, userName);
 
+        mProgress = (ProgressBar) findViewById(R.id.progressBar);
+        mProgress.setVisibility(View.INVISIBLE);
+
         doorSound = MediaPlayer.create(this.getApplicationContext(), R.raw.door_open1);
 
         records = (ImageButton) findViewById(R.id.records);
@@ -136,39 +147,45 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                     return;
                 }
 
-                if(PlayerHandler.getInstance().getPlayer() == null){
+                hide(true);
+                mProgress.setVisibility(View.VISIBLE);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(PlayerHandler.getInstance().getPlayer() == null){
+                            try {
+
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e) {
+                                Log.d(TAG,e.getMessage());
+                            }
+                            //Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+                            //return
+                            //Log.d(TAG,"null");
+                            //return;
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mProgress.setVisibility(View.INVISIBLE);
+                                openDoorToTheRoom();
+                            }
+                        });
+                    }
+                }).start();
+                /*if (PlayerHandler.getInstance().getPlayer() == null){
                     try {
-                        Thread.sleep(500);
+
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         Log.d(TAG,e.getMessage());
                     }
+                    //Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
+                    //return
+                    Log.d(TAG,"null");
+                    return;
                 }
-
-                final ImageView openDoorImg = (ImageView) findViewById(R.id.openDoor);
-                //final RelativeLayout background = (RelativeLayout) findViewById(R.id.activity_main);
-                hide(true);
-                //background.setBackgroundResource(R.drawable.livingroom);
-                openDoorImg.setVisibility(View.VISIBLE);
-                openDoorImg.bringToFront();
-                openDoorImg.setBackgroundResource(R.drawable.open_door);
-                ((AnimationDrawable) openDoorImg.getBackground()).start();
-                doorSound.start();
-                new CountDownTimer(1200, 1000) {
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        Intent intent = new Intent(MainActivity.this, Room.class);
-                        startActivity(intent);
-                        hide(false);
-                        openDoorImg.setVisibility(View.INVISIBLE);
-                        //background.setBackgroundResource(R.drawable.background);
-                    }
-                }.start();
-
+                openDoorToTheRoom();*/
 
             }
         });
@@ -205,6 +222,33 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             records.setVisibility(View.VISIBLE);
 
         }
+    }
+
+    public void openDoorToTheRoom(){
+        final ImageView openDoorImg = (ImageView) findViewById(R.id.openDoor);
+        //final RelativeLayout background = (RelativeLayout) findViewById(R.id.activity_main);
+       // hide(true);
+        //background.setBackgroundResource(R.drawable.livingroom);
+        openDoorImg.setVisibility(View.VISIBLE);
+        openDoorImg.bringToFront();
+        openDoorImg.setBackgroundResource(R.drawable.open_door);
+        ((AnimationDrawable) openDoorImg.getBackground()).start();
+        doorSound.start();
+        new CountDownTimer(1200, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(MainActivity.this, Room.class);
+                startActivity(intent);
+                hide(false);
+                openDoorImg.setVisibility(View.INVISIBLE);
+                //background.setBackgroundResource(R.drawable.background);
+            }
+        }.start();
     }
 
     @Override
