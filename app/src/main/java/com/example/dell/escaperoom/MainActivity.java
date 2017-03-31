@@ -152,17 +152,30 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        int counter = 0;
                         while(PlayerHandler.getInstance().getPlayer() == null){
+                            counter++;
+                            if(counter > 4){
+                                 runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgress.setVisibility(View.INVISIBLE);
+                                        hide(false);
+                                        Toast.makeText(MainActivity.this,
+                                                "Oops.. its takes to long, check your internet connection",
+                                                Toast.LENGTH_LONG);
+
+                                    }
+                                });
+                                return;
+                            }
                             try {
 
                                 Thread.sleep(3000);
                             } catch (InterruptedException e) {
                                 Log.d(TAG,e.getMessage());
                             }
-                            //Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
-                            //return
-                            //Log.d(TAG,"null");
-                            //return;
+
                         }
                         runOnUiThread(new Runnable() {
                             @Override
@@ -173,20 +186,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         });
                     }
                 }).start();
-                /*if (PlayerHandler.getInstance().getPlayer() == null){
-                    try {
-
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        Log.d(TAG,e.getMessage());
-                    }
-                    //Toast.makeText(MainActivity.this, "null", Toast.LENGTH_SHORT).show();
-                    //return
-                    Log.d(TAG,"null");
-                    return;
-                }
-                openDoorToTheRoom();*/
-
             }
         });
 

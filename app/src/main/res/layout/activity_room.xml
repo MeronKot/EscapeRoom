@@ -9,8 +9,8 @@
 
     <ImageButton
         android:id="@+id/lamp"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="37dp"
+        android:layout_height="65dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="8dp"
@@ -20,16 +20,16 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/unnamed"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <ImageButton
         android:id="@+id/topRightPic"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="38dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -37,16 +37,16 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/unnamed"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.61"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32999998" />
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <ImageButton
         android:id="@+id/puzzleBtn"
-        android:layout_width="28dp"
-        android:layout_height="41dp"
+        android:layout_width="39dp"
+        android:layout_height="43dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -59,7 +59,8 @@
         app:layout_constraintVertical_bias="0.562"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.187" />
+        app:layout_constraintHorizontal_bias="0.187"
+        tools:layout_editor_absoluteY="149dp" />
 
     <ImageButton
         android:id="@+id/simonBtn"
@@ -83,18 +84,19 @@
 
     <ImageButton
         android:id="@+id/findDiffPic"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="39dp"
+        android:layout_height="26dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/unnamed"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20999998" />
+        app:layout_constraintVertical_bias="0.23000002"
+        tools:layout_editor_absoluteY="64dp" />
 
 </android.support.constraint.ConstraintLayout>

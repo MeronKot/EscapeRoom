@@ -21,9 +21,9 @@ import com.example.dell.escaperoom.Logic.PuzzleLogic;
 public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.WinListener {
 
     private static final int NUM_OF_HINTS = 3;
-    private String [] hints = {"Hint no. 1",
-            "Hint no. 2",
-            "Hint no. 3"};
+    private String [] hints = {"Tap to move the tile.",
+            "Remember the living room.",
+            "The black should be on the top left."};
     private int hintCounter = 0;
     private Button hintButton;
     private Button hide;

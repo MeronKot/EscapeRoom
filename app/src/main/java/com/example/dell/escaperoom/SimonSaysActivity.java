@@ -21,10 +21,9 @@ import static com.example.dell.escaperoom.R.drawable.ic_purple_button;
 
 public class SimonSaysActivity extends AppCompatActivity {
 
-    private static final int NUM_OF_HINTS = 1;
+    private static final int NUM_OF_HINTS = 2;
     private String [] hints = {"Try to remember the steps.",
-            "Hint no. 2",
-            "Hint no. 3"};
+            "There is 5 steps."};
     private int hintCounter = 0;
     private Button hintButton;
     private Button hide;
