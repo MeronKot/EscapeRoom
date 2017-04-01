@@ -30,8 +30,6 @@ public class HintActivity extends AppCompatActivity {
     private Button answer4;
     private int theRightAnswer;
 
-    private static int numOfQuest = 0;
-
     private DatabaseReference databaseQuestions;
 
     private List<Question> questionList;
@@ -121,12 +119,10 @@ public class HintActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 questionList.clear();
                 keys.clear();
-                numOfQuest = 0;
                 for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
                     Question quest = questionSnapshot.getValue(Question.class);
                     questionList.add(quest);
                     keys.add(Integer.parseInt(questionSnapshot.getKey()));
-                    numOfQuest++;
                 }
 
                 Question q = getQuestion();

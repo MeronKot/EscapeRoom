@@ -21,7 +21,7 @@ public class PuzzleBoard {
         board = new Tile[rows][cols];
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                board[i][j] = new Tile(con, i, j, puzzle[i][j]);
+                board[i][j] = new Tile(con, puzzle[i][j]);
     }
 
     public Tile getTile(int row, int col) {

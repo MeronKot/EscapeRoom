@@ -8,8 +8,7 @@ import android.net.NetworkInfo;
 
 import com.example.dell.escaperoom.MainActivity;
 
-public class ConnectivityReceiver
-        extends BroadcastReceiver {
+public class ConnectivityReceiver extends BroadcastReceiver {
 
     public static ConnectivityReceiverListener connectivityReceiverListener;
 

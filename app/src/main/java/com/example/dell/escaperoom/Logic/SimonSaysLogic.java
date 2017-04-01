@@ -18,7 +18,6 @@ public class SimonSaysLogic {
     public static final int NUM_OF_COLORS = 4;
 
     private int[] computerMoves = new int[NUM_OF_MOVES];
-    //private int[] playerMoves = new int[NUM_OF_MOVES];
     private int move = 1;
 
     public int getMove(){return move;}

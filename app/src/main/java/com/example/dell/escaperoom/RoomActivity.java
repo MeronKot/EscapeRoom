@@ -21,13 +21,12 @@ import java.util.TimerTask;
 
 public class RoomActivity extends AppCompatActivity {
 
-    //private static final int NUM_OF_CHALLENGES = 5;
     private ImageButton temp;
     private ImageButton lamp;
     private ImageButton puzzle;
     private ImageButton simon;
     private ImageButton findDiff;
-    //private boolean [] challenges;
+
     private boolean challengeResult;
     public static boolean onGame = false;
     private boolean destroy = false;

@@ -20,10 +20,6 @@ public class GameTimer {
         sec = 0;
     }
 
-    public int getSecCounter() {
-        return secCounter;
-    }
-
     public String toString() {
         String str = "";
 

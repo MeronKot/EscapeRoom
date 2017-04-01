@@ -1,7 +1,6 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
@@ -43,9 +42,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     private static final int PROGRESS = 1;
 
     private ProgressBar mProgress;
-    private int mProgressStatus = 0;
 
-   // private Handler mHandler = new Handler();
 
 
     @Override
@@ -84,13 +81,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
     private void showSnack(boolean isConnected) {
         String message;
-        int color;
+        //int color;
         if (isConnected) {
             message = "Good! Connected to Internet";
-            color = Color.WHITE;
+            //color = Color.WHITE;
         } else {
             message = "Sorry! Not connected to internet";
-            color = Color.RED;
+            //color = Color.RED;
         }
 
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

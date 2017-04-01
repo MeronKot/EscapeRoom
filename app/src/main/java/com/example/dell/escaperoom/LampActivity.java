@@ -37,7 +37,7 @@ public class LampActivity extends AppCompatActivity implements SensorEventListen
     private float startValue;
     private boolean finish = false;
     private enum Status {DAY, NIGHT};
-    private Status firstStauts;
+    private Status firstStatus;
 
 
     @Override
@@ -102,17 +102,17 @@ public class LampActivity extends AppCompatActivity implements SensorEventListen
             startValue = event.values[0];
             if (startValue <= 20) {
                 lampChallenge.setBackgroundResource(R.drawable.onlight);
-                firstStauts = Status.NIGHT;
+                firstStatus = Status.NIGHT;
             }
             if (startValue > 20) {
                 lampChallenge.setBackgroundResource(R.drawable.offlight);
-                firstStauts = Status.DAY;
+                firstStatus = Status.DAY;
             }
             startSampling = false;
         }
 
         if (event.values[0] <= 20 && !finish) {
-            if (firstStauts == Status.DAY) {
+            if (firstStatus == Status.DAY) {
                 lampChallenge.setBackgroundResource(R.drawable.onlight);
                 Toast.makeText(this, "Great, when is dark you need to turn on the lights", Toast.LENGTH_LONG).show();
                 finish = true;
@@ -129,7 +129,7 @@ public class LampActivity extends AppCompatActivity implements SensorEventListen
         }
 
         if (event.values[0] > 20 && !finish) {
-            if (firstStauts == Status.NIGHT) {
+            if (firstStatus == Status.NIGHT) {
                 lampChallenge.setBackgroundResource(R.drawable.offlight);
                 Toast.makeText(this, "Great, on day you need to turn off the lights", Toast.LENGTH_LONG).show();
                 finish = true;

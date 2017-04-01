@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by yaelgersh on 25/03/2017.
  */
 
-public class PlayerHandler/* extends Service*/ {
+public class PlayerHandler {
     private static PlayerHandler instance = new PlayerHandler();
     private Player player = null;
     private DatabaseReference databasePlayers;
@@ -24,15 +24,9 @@ public class PlayerHandler/* extends Service*/ {
     private boolean firstUpdate = true;
 
 
-    private PlayerHandler(){
+    private PlayerHandler() {
         databasePlayers = FirebaseDatabase.getInstance().getReference("Players");//.child(player.getId());
     }
-
-    /*@Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }*/
 
     public static PlayerHandler getInstance() {
         return instance;
@@ -40,10 +34,6 @@ public class PlayerHandler/* extends Service*/ {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public boolean getFirstUpdate(){
-        return firstUpdate;
     }
 
     public void setPlayer(final String id, final String name) {
