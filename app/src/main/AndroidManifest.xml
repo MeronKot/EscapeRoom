@@ -33,10 +33,10 @@
             android:name=".RoomActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ChemistryChallenge"
+            android:name=".ChemistryActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LampChallenge"
+            android:name=".LampActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SimonSaysActivity"
