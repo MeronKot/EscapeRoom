@@ -1,7 +1,6 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
@@ -17,13 +16,10 @@ import android.widget.Toast;
 
 import com.example.dell.escaperoom.Logic.SimonSaysLogic;
 
-import static com.example.dell.escaperoom.R.drawable.ic_purple_button;
-
 public class SimonSaysActivity extends AppCompatActivity {
 
-    private static final int NUM_OF_HINTS = 2;
-    private String [] hints = {"Try to remember the steps.",
-            "There is 5 steps."};
+    private static final int NUM_OF_HINTS = 1;
+    private String [] hints = {"Try to remember the steps."};
     private int hintCounter = 0;
     private Button hintButton;
     private Button hide;
@@ -44,6 +40,11 @@ public class SimonSaysActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon_says);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -105,7 +106,7 @@ public class SimonSaysActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         play(logic.getNewComputerMoves());
-        Room.onGame = true;
+        RoomActivity.onGame = true;
         inChallenge = true;
 
     }
@@ -113,7 +114,7 @@ public class SimonSaysActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Room.onGame = false;
+        RoomActivity.onGame = false;
         inChallenge = false;
     }
 

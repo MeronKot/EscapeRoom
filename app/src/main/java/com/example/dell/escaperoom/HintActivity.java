@@ -42,6 +42,11 @@ public class HintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hint);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -168,12 +173,12 @@ public class HintActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Room.onGame = true;
+        RoomActivity.onGame = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Room.onGame = false;
+        RoomActivity.onGame = false;
     }
 }

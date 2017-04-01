@@ -1,26 +1,21 @@
 package com.example.dell.escaperoom;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dell.escaperoom.Database.DBObjects.Player;
 import com.example.dell.escaperoom.Database.PlayerHandler;
 import com.example.dell.escaperoom.Logic.ConnectivityReceiver;
 import com.example.dell.escaperoom.Logic.MyApplication;
@@ -28,9 +23,6 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
@@ -60,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -241,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(MainActivity.this, Room.class);
+                Intent intent = new Intent(MainActivity.this, RoomActivity.class);
                 startActivity(intent);
                 hide(false);
                 openDoorImg.setVisibility(View.INVISIBLE);

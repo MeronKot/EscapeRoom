@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -20,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Room extends AppCompatActivity {
+public class RoomActivity extends AppCompatActivity {
 
     //private static final int NUM_OF_CHALLENGES = 5;
     private ImageButton temp;
@@ -42,6 +41,11 @@ public class Room extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -51,7 +55,7 @@ public class Room extends AppCompatActivity {
         databaseRecords = FirebaseDatabase.getInstance().getReference("Records");
 
         if(p != null && p.isWinner()){
-            Intent intent = new Intent(Room.this, WinActivity.class);
+            Intent intent = new Intent(RoomActivity.this, WinActivity.class);
             //intent.putExtra("name",p.getName());
             //intent.putExtra("time",p.getTime());
             startActivity(intent);
@@ -59,11 +63,11 @@ public class Room extends AppCompatActivity {
         }
         else {
             if (p.getLevel1() == 0) {
-                temp = (ImageButton) findViewById(R.id.topRightPic);
+                temp = (ImageButton) findViewById(R.id.window);
                 temp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Room.this, ChemistryChallenge.class);
+                        Intent intent = new Intent(RoomActivity.this, ChemistryActivity.class);
                         startActivityForResult(intent, 0);
                     }
                 });
@@ -74,7 +78,7 @@ public class Room extends AppCompatActivity {
                 lamp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Room.this, LampChallenge.class);
+                        Intent intent = new Intent(RoomActivity.this, LampActivity.class);
                         startActivityForResult(intent, 1);
                     }
                 });
@@ -85,7 +89,7 @@ public class Room extends AppCompatActivity {
                 puzzle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Room.this, PuzzleActivity.class);
+                        Intent intent = new Intent(RoomActivity.this, PuzzleActivity.class);
                         startActivityForResult(intent, 2);
                     }
                 });
@@ -96,7 +100,7 @@ public class Room extends AppCompatActivity {
                 simon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Room.this, SimonSaysActivity.class);
+                        Intent intent = new Intent(RoomActivity.this, SimonSaysActivity.class);
                         startActivityForResult(intent, 3);
                     }
                 });
@@ -107,7 +111,7 @@ public class Room extends AppCompatActivity {
                 findDiff.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Room.this, FindDiffPicActivity.class);
+                        Intent intent = new Intent(RoomActivity.this, FindDiffPicActivity.class);
                         startActivityForResult(intent, 4);
                     }
                 });
@@ -180,7 +184,7 @@ public class Room extends AppCompatActivity {
                     record.setName(p.getName());
                     record.setScore(p.getTime());
                     databaseRecords.child(p.getId()).setValue(record);
-                    Intent intent = new Intent(Room.this, WinActivity.class);
+                    Intent intent = new Intent(RoomActivity.this, WinActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -203,7 +207,7 @@ public class Room extends AppCompatActivity {
             @Override
             public void run() {
                 ticking = true;
-                clockSound = MediaPlayer.create(Room.this, R.raw.clock_sound);
+                clockSound = MediaPlayer.create(RoomActivity.this, R.raw.clock_sound);
                 while (ticking){
                    if(!clockSound.isPlaying())
                    {

@@ -10,7 +10,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LampChallenge extends AppCompatActivity implements SensorEventListener {
+public class LampActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final int NUM_OF_HINTS = 3;
     private String [] hints = {"If it's dark, you need to...",
@@ -45,6 +44,11 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp_challenge);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -65,7 +69,7 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
                     Toast.makeText(getApplicationContext(),"You don't have hints any more",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(LampChallenge.this,HintActivity.class);
+                Intent intent = new Intent(LampActivity.this,HintActivity.class);
                 startActivityForResult(intent,hintCounter);
             }
         });
@@ -82,14 +86,14 @@ public class LampChallenge extends AppCompatActivity implements SensorEventListe
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
-        Room.onGame=true;
+        RoomActivity.onGame=true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
-        Room.onGame = false;
+        RoomActivity.onGame = false;
     }
 
     @Override

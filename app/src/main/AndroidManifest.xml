@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Room"
+            android:name=".RoomActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ChemistryChallenge"

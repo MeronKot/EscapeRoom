@@ -2,7 +2,6 @@ package com.example.dell.escaperoom;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +36,11 @@ public class FindDiffPicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_diff_pic);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -213,12 +217,12 @@ public class FindDiffPicActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Room.onGame = true;
+        RoomActivity.onGame = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Room.onGame = false;
+        RoomActivity.onGame = false;
     }
 }

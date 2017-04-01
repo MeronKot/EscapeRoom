@@ -1,16 +1,13 @@
 package com.example.dell.escaperoom;
 
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -19,7 +16,7 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ChemistryChallenge extends AppCompatActivity {
+public class ChemistryActivity extends AppCompatActivity {
 
     private static final int NUM_OF_TEMPS = 3,NUM_OF_HINTS = 3;
     private String [] hints = {"One hundred degrees Celsius equals 212 Fahrenheit",
@@ -42,6 +39,11 @@ public class ChemistryChallenge extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chemistry_challenge);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -137,7 +139,7 @@ public class ChemistryChallenge extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"You don't have hints any more",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(ChemistryChallenge.this,HintActivity.class);
+                Intent intent = new Intent(ChemistryActivity.this,HintActivity.class);
                 startActivityForResult(intent,hintCounter);
             }
         });
@@ -191,13 +193,13 @@ public class ChemistryChallenge extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Room.onGame = true;
+        RoomActivity.onGame = true;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 sound = true;
-                labSound = MediaPlayer.create(ChemistryChallenge.this, R.raw.laboratory);
+                labSound = MediaPlayer.create(ChemistryActivity.this, R.raw.laboratory);
                 while (sound){
                     if(!labSound.isPlaying())
                     {
@@ -213,7 +215,7 @@ public class ChemistryChallenge extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Room.onGame = false;
+        RoomActivity.onGame = false;
 
         if(labSound != null) {
             labSound.stop();

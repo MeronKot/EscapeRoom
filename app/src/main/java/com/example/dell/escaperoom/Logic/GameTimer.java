@@ -1,10 +1,5 @@
 package com.example.dell.escaperoom.Logic;
 
-import android.util.Log;
-
-import com.example.dell.escaperoom.Database.PlayerHandler;
-import com.example.dell.escaperoom.Room;
-
 /**
  * Created by yaelgersh on 25/03/2017.
  */

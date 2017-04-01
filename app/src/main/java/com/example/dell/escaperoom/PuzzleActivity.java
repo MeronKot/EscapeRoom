@@ -42,6 +42,11 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -153,12 +158,12 @@ public class PuzzleActivity extends AppCompatActivity implements PuzzleLogic.Win
     @Override
     protected void onResume() {
         super.onResume();
-        Room.onGame = true;
+        RoomActivity.onGame = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Room.onGame = false;
+        RoomActivity.onGame = false;
     }
 }
