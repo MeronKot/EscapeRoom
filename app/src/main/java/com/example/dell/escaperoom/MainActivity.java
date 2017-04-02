@@ -59,19 +59,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
-            // already signed in
-            uid = mAuth.getCurrentUser().getUid();
-            userName = mAuth.getCurrentUser().getDisplayName();
-            Log.d("Auth", "id: " + uid + " name: " + userName);
-            PlayerHandler.getInstance().setFirstUpdate(true);
-            initActivity();
-        } else {
-            // not signed in
-            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
-                    .setProviders(AuthUI.FACEBOOK_PROVIDER,
-                            AuthUI.GOOGLE_PROVIDER).build(), RC_SIGN_IN);
-        }
+
     }
 
     private boolean checkConnection() {
@@ -262,6 +250,20 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     protected void onResume() {
         super.onResume();
         MyApplication.getInstance().setConnectivityListener(this);
+
+        if (mAuth.getCurrentUser() != null) {
+            // already signed in
+            uid = mAuth.getCurrentUser().getUid();
+            userName = mAuth.getCurrentUser().getDisplayName();
+            Log.d("Auth", "id: " + uid + " name: " + userName);
+            PlayerHandler.getInstance().setFirstUpdate(true);
+            initActivity();
+        } else {
+            // not signed in
+            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+                    .setProviders(AuthUI.FACEBOOK_PROVIDER,
+                            AuthUI.GOOGLE_PROVIDER).build(), RC_SIGN_IN);
+        }
     }
 
     @Override
@@ -281,5 +283,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             }
         }
     }
+
 }
 
