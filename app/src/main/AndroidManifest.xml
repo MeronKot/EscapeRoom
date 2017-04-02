@@ -55,7 +55,8 @@
             android:name=".WinActivity"
             android:hardwareAccelerated="false"
             android:screenOrientation="landscape" />
-        <activity android:name=".InstructionActivity" />
+        <activity android:name=".InstructionActivity"
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".Logic.ConnectivityReceiver"
