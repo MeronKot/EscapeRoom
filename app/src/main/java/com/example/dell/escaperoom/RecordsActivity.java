@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.dell.escaperoom.Database.DBObjects.Record;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,7 @@ public class RecordsActivity extends AppCompatActivity {
     private DatabaseReference databaseRecords;
     private ListView recordListView;
     private List<Record> recordList;
+    private ProgressBar prog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class RecordsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        prog = (ProgressBar) findViewById(R.id.recordsProgress);
+
         databaseRecords = FirebaseDatabase.getInstance().getReference("Records");
         recordListView = (ListView) findViewById(R.id.listViewRecords);
         recordList = new ArrayList<Record>();
@@ -45,7 +49,7 @@ public class RecordsActivity extends AppCompatActivity {
         databaseRecords.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                prog.setVisibility(View.INVISIBLE);
                 recordList.clear();
                 for(DataSnapshot recordsSnapshot : dataSnapshot.getChildren()){
                     Record record = recordsSnapshot.getValue(Record.class);

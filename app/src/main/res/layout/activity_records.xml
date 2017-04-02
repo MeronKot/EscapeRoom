@@ -1,42 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dell.escaperoom.RecordsActivity"
-    android:background="@drawable/images"
-    android:orientation="vertical">
+    android:background="@drawable/images">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:orientation="vertical"
+        >
 
         <TextView
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-            android:textColor="@color/com_facebook_button_background_color_disabled"
-            android:text="NAME:"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:text="@string/records"
+            android:gravity="center"
+            android:textSize="50dp"
             android:textColor="@color/com_facebook_button_background_color_disabled"
-            android:text="SCORE:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:layout_weight="1"/>
+            />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textColor="@color/com_facebook_button_background_color_disabled"
+                android:text="@string/name"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textColor="@color/com_facebook_button_background_color_disabled"
+                android:text="@string/score"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/listViewRecords"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
-    <ListView
-        android:id="@+id/listViewRecords"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-</LinearLayout>
+        android:gravity="center">
+        <ProgressBar
+            android:id="@+id/recordsProgress"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"/>
+    </LinearLayout>
+
+</RelativeLayout>

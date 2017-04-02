@@ -10,4 +10,7 @@
     <string name="welcome">Welcome!</string>
     <string name="youWin">you finished this room.</string>
     <string name="time">Time:</string>
+    <string name="name"><u>NAME:</u></string>
+    <string name="score"><u>SCORE:</u></string>
+    <string name="records"><b>RECORDS:</b></string>
 </resources>
